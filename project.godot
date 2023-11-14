@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="pixeljam"
-run/main_scene="res://scenes/Tester.tscn"
+run/main_scene="res://scenes/TestLevel.tscn"
 config/icon="res://icon.png"
 
 [display]
