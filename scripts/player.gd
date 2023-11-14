@@ -1,22 +1,61 @@
 extends KinematicBody2D
 
-# Declare member variables here. Examples:
-var speed = 200
-var velocity = Vector2()
+# Physics properties
+export var speed = 200.0
+export var jump_height: float
+export var jump_time_to_peak: float
+export var jump_time_to_descent: float
+export var acceleration: float = 1000.0  # Adjust as needed
+export var friction: float = 800.0  # Adjust as needed
+export var coyote_time: float = 0.15  # Adjust the time in seconds
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	# Player movement
-	velocity = Vector2()
+var velocity := Vector2.ZERO
 
+onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
+onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
+onready var jump_timer: Timer = $CoyoteTimer
+
+
+func _physics_process(delta):
+	velocity.y += get_gravity() * delta
+
+	# Applying acceleration and friction
+	var target_velocity = get_input_velocity() * speed
+	velocity.x = interpolate(velocity.x, target_velocity, acceleration * delta)
+
+	var was_on_floor = is_on_floor()
+
+	if (is_on_floor() or !jump_timer.is_stopped()) and Input.is_action_just_pressed("ui_up"):
+		jump()
+
+	velocity = move_and_slide(velocity, Vector2.UP)
+
+	if was_on_floor and !is_on_floor():
+		jump_timer.start(coyote_time)
+	elif is_on_floor():
+		jump_timer.stop()
+
+func get_gravity() -> float:
+	return jump_gravity if velocity.y < 0.0 else fall_gravity
+
+func get_input_velocity() -> float:
+	var horizontal_velocity := 0.0
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+		horizontal_velocity += 1.0
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
+		horizontal_velocity -= 1.0
+	
+	return horizontal_velocity
 
-	velocity = velocity.normalized() * speed
-	move_and_slide(velocity)
+func jump():
+	velocity.y = jump_velocity
+
+func interpolate(current: float, target: float, delta: float) -> float:
+	if current < target:
+		return min(current + delta, target)
+	elif current > target:
+		return max(current - delta, target)
+	else:
+		return current
+
