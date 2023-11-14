@@ -8,6 +8,7 @@ export var jump_time_to_descent: float
 export var acceleration: float = 1000.0  # Adjust as needed
 export var friction: float = 800.0  # Adjust as needed
 export var coyote_time: float = 0.15  # Adjust the time in seconds
+export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 
 var velocity := Vector2.ZERO
 
@@ -22,12 +23,16 @@ func _physics_process(delta):
 
 	# Applying acceleration and friction
 	var target_velocity = get_input_velocity() * speed
+    #  For smooth speed manipulation, use the interpolate function
 	velocity.x = interpolate(velocity.x, target_velocity, acceleration * delta)
 
 	var was_on_floor = is_on_floor()
 
-	if (is_on_floor() or !jump_timer.is_stopped()) and Input.is_action_just_pressed("ui_up"):
+    # Jumping
+	if Input.is_action_just_pressed("ui_up"):
 		jump()
+	if Input.is_action_just_released("ui_up"):
+		cancel_jump()
 
 	velocity = move_and_slide(velocity, Vector2.UP)
 
@@ -41,6 +46,7 @@ func get_gravity() -> float:
 
 func get_input_velocity() -> float:
 	var horizontal_velocity := 0.0
+    # Horizontal movement
 	if Input.is_action_pressed("ui_right"):
 		horizontal_velocity += 1.0
 	if Input.is_action_pressed("ui_left"):
@@ -49,13 +55,21 @@ func get_input_velocity() -> float:
 	return horizontal_velocity
 
 func jump():
-	velocity.y = jump_velocity
+    """When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
+    if is_on_floor() or !jump_timer.is_stopped():
+	    velocity.y = jump_velocity
+
+func cancel_jump():
+    """Cancel the jump if the player releases the jump button early."""
+    if velocity.y < variable_jump_velocity_floor:
+        velocity.y = variable_jump_velocity_floor
 
 func interpolate(current: float, target: float, delta: float) -> float:
-	if current < target:
-		return min(current + delta, target)
-	elif current > target:
-		return max(current - delta, target)
-	else:
-		return current
+    """Interpolate between current and target values by delta"""
+    if current < target:
+        return min(current + delta, target)
+    elif current > target:
+        return max(current - delta, target)
+    else:
+        return current
 
