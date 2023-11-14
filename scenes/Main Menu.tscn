@@ -29,7 +29,6 @@ anchor_bottom = 1.0
 script = ExtResource( 9 )
 
 [node name="Start Button" type="TextureButton" parent="."]
-visible = false
 margin_left = 110.0
 margin_top = 50.0
 margin_right = 206.0
@@ -40,7 +39,6 @@ texture_hover = ExtResource( 3 )
 script = ExtResource( 8 )
 
 [node name="Quit Button" type="TextureButton" parent="."]
-visible = false
 margin_left = 110.0
 margin_top = 110.0
 margin_right = 206.0
@@ -52,6 +50,7 @@ texture_hover = ExtResource( 6 )
 script = ExtResource( 7 )
 
 [node name="1" type="TextureButton" parent="."]
+visible = false
 margin_left = 90.0
 margin_top = 50.0
 margin_right = 130.0
@@ -61,6 +60,7 @@ texture_pressed = ExtResource( 19 )
 texture_hover = ExtResource( 20 )
 
 [node name="2" type="TextureButton" parent="."]
+visible = false
 margin_left = 140.0
 margin_top = 50.0
 margin_right = 180.0
@@ -70,6 +70,7 @@ texture_pressed = ExtResource( 13 )
 texture_hover = ExtResource( 16 )
 
 [node name="3" type="TextureButton" parent="."]
+visible = false
 margin_left = 190.0
 margin_top = 50.0
 margin_right = 230.0
@@ -79,6 +80,7 @@ texture_pressed = ExtResource( 14 )
 texture_hover = ExtResource( 15 )
 
 [node name="Back" type="TextureButton" parent="."]
+visible = false
 margin_left = 110.0
 margin_top = 100.0
 margin_right = 206.0
@@ -90,4 +92,7 @@ script = ExtResource( 22 )
 
 [connection signal="button_up" from="Start Button" to="." method="go_to_level_select"]
 [connection signal="button_up" from="Quit Button" to="Quit Button" method="quit_game"]
+[connection signal="button_up" from="1" to="." method="change_level" binds= [ "1" ]]
+[connection signal="button_up" from="2" to="." method="change_level" binds= [ "2" ]]
+[connection signal="button_up" from="3" to="." method="change_level" binds= [ "2" ]]
 [connection signal="button_up" from="Back" to="Back" method="go_back"]

@@ -27,3 +27,8 @@ func set_level_screen_visibility(vis):
 	$"Back".set_process(vis)
 	$"Back".visible = vis
 	
+	
+func change_level(num):
+	print("loading level " + num)
+	get_tree().change_scene("res://Scenes/TestLevel.tscn") # hard coded until other scenes added
+	#get_tree().change_scene("res://Scenes/Levels/Level " + num + ".tscn")
