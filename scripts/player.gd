@@ -32,6 +32,7 @@ const NORMAL_SCALE = Vector2(1, 1)
 
 var is_falling = false
 var facing_direction = 1  # Initially facing right
+var jumped = false
 
 func _process(delta):
 	flip_sprite()
@@ -48,6 +49,10 @@ func _physics_process(delta):
 
 	var was_on_floor = is_on_floor()
 
+	if is_on_floor():
+		# Reset jump
+		jumped = false
+
 	# Jumping
 	if Input.is_action_just_pressed(InputActions.JUMP):
 		jump()
@@ -60,7 +65,6 @@ func _physics_process(delta):
 		jump_timer.start(coyote_time)
 	elif is_on_floor():
 		jump_timer.stop()
-
 	
 	if !is_on_floor() and velocity.y > 0.0:
 		is_falling = true
@@ -87,7 +91,8 @@ func get_input_velocity() -> float:
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
-	if is_on_floor() or !jump_timer.is_stopped():
+	if is_on_floor() or !jump_timer.is_stopped() and jumped == false:
+		jumped = true
 		# Animation
 		player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
 		reset_scale()
