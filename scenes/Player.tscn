@@ -20,10 +20,10 @@ region = Rect2( 48, 192, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 2 ) ],
 "loop": true,
 "name": "run",
-"speed": 5.0
+"speed": 12.0
 } ]
 
 [node name="Player" type="KinematicBody2D"]
@@ -44,5 +44,3 @@ animation = "run"
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
-
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
