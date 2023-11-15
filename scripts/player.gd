@@ -13,6 +13,7 @@ export var acceleration: float = 1000.0  # Adjust as needed
 export var friction: float = 800.0  # Adjust as needed
 export var coyote_time: float = 0.15  # Adjust the time in seconds
 export var variable_jump_velocity_floor = -80.0 # Adjust as needed
+export var bop_force = -100.0
 
 var velocity := Vector2.ZERO
 
@@ -22,6 +23,7 @@ onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * j
 onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 onready var jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
+onready var hitbox = $Hitbox
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -29,10 +31,16 @@ const SQUASH_Y_AMOUNT = 0.8
 const STRETCH_X_AMOUNT = 0.8
 const STRETCH_Y_AMOUNT = 1.2
 const NORMAL_SCALE = Vector2(1, 1)
+const BOP_DURATION = 0.2
 
 var is_falling = false
 var facing_direction = 1  # Initially facing right
 var jumped = false
+var bop_duration = BOP_DURATION
+var bopped = false
+
+func _ready():
+	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
 
 func _process(delta):
 	flip_sprite()
@@ -59,6 +67,14 @@ func _physics_process(delta):
 	if Input.is_action_just_released(InputActions.JUMP):
 		cancel_jump()
 	
+	# Bopping
+	if bopped:
+		if bop_duration > 0:
+			velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
+			bop_duration -= delta
+		else:
+			bopped = false
+
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 	if was_on_floor and !is_on_floor():
@@ -123,4 +139,12 @@ func reset_scale():
 	"""Essentially a coroutine to reset the scale of the player sprite after a jump."""
 	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
 	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
+
+# Signals
+func _on_player_landed_on_enemy():
+	"""Perform actions when the player lands on an enemy"""
+	print("Player landed on enemy!")
+	# Indicate you bopped an enemy so we can maniuplate other processes
+	bopped = true
+	bop_duration = BOP_DURATION
 
