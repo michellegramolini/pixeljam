@@ -154,5 +154,5 @@ position = Vector2( 208, 48 )
 speed = 100.0
 jump_height = 35.0
 jump_time_to_peak = 0.2
-jump_time_to_descent = 0.16
+jump_time_to_descent = 0.17
 coyote_time = 0.2
