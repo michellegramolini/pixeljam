@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=3]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -30,16 +31,16 @@ position = Vector2( 32, 80 )
 position = Vector2( 48, 80 )
 
 [node name="Block16" parent="." instance=ExtResource( 1 )]
-position = Vector2( 80, 48 )
+position = Vector2( 266, 103 )
 
 [node name="Block17" parent="." instance=ExtResource( 1 )]
 position = Vector2( 240, 48 )
 
 [node name="Block18" parent="." instance=ExtResource( 1 )]
-position = Vector2( 96, 48 )
+position = Vector2( 282, 103 )
 
 [node name="Block19" parent="." instance=ExtResource( 1 )]
-position = Vector2( 112, 48 )
+position = Vector2( 298, 103 )
 
 [node name="Block20" parent="." instance=ExtResource( 1 )]
 position = Vector2( 256, 48 )
@@ -156,3 +157,16 @@ jump_height = 35.0
 jump_time_to_peak = 0.2
 jump_time_to_descent = 0.17
 coyote_time = 0.2
+
+[node name="Enemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 108, 81 )
+horizontal_motion = false
+motion_distance = 1.0
+
+[node name="Enemy2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 68 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 47, 48 )
+horizontal_motion = false
+motion_distance = 5.0
