@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/quit pressed.png-90fe6ecbdc4a1b36dbf0c8fec935f074.stex"
+path="res://.import/3 pressed.png-21fc75a392230f7f17c188aed49444f3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/UI/quit pressed.png"
-dest_files=[ "res://.import/quit pressed.png-90fe6ecbdc4a1b36dbf0c8fec935f074.stex" ]
+source_file="res://art/UI/main_menu/3 pressed.png"
+dest_files=[ "res://.import/3 pressed.png-21fc75a392230f7f17c188aed49444f3.stex" ]
 
 [params]
 
