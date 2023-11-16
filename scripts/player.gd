@@ -70,7 +70,7 @@ func _process(delta):
 		if reset_position:
 			reset_position = false
 			position = starting_position  # Reset the position
-		# TODO: enable hurtbox
+			
 		player_sprite.visible = true  # Hide the player sprite
 		hurtbox.monitorable = true # Enable hurtbox
 		input_enabled = true # Re-enable player controls
