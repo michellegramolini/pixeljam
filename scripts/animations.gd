@@ -1,4 +1,3 @@
-# Animation.gd
 class_name Animations
 
 # TODO: these could be prefixed PLAYER_ or ENEMY_ but fine for now

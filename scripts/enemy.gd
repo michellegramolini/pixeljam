@@ -56,7 +56,8 @@ func _process(delta):
 		if collider.is_in_group("Player"):  # Replace "AreaGroup" with your Area2D's group
 			# TODO:
 			# Handle collision with the Area2D
-			print("Colliding with Player")
+			pass
+			# print("Colliding with Player")
 			# check if pogo is activated off of player node and don't do damage if it is
 
 	if horizontal_motion:
