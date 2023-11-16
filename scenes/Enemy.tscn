@@ -22,7 +22,7 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[node name="Enemy" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Enemy" type="KinematicBody2D" groups=["Enemy", "Hazard"]]
 position = Vector2( 144, 112 )
 script = ExtResource( 2 )
 motion_distance = 10.0

@@ -14,6 +14,8 @@ export var friction: float = 800.0  # Adjust as needed
 export var coyote_time: float = 0.15  # Adjust the time in seconds
 export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 export var bop_force = -100.0
+export var bop_slam_multiplier = 1.5
+export var slam_velocity_multiplier = 1.5
 
 var velocity := Vector2.ZERO
 
@@ -24,6 +26,7 @@ onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent 
 onready var jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
 onready var hitbox = $Hitbox
+onready var hurtbox = $Hurtbox
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -38,12 +41,39 @@ var facing_direction = 1  # Initially facing right
 var jumped = false
 var bop_duration = BOP_DURATION
 var bopped = false
+var slammed = false
+var disabled_duration = 1.0  # Duration to disable collisions
+var disabled_timer = 0.0  # Timer to track disabled time
+var starting_position: Vector2
+var reset_position = false
+var input_enabled = true
 
 func _ready():
+	# Connect signals
 	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
+	hurtbox.connect("player_hurt", self, "_on_player_hurt")
+
+	# Store the initial position when the scene is ready
+	starting_position = global_position
 
 func _process(delta):
 	flip_sprite()
+
+	# Check if the player is disabled
+	if disabled_timer > 0:
+		hurtbox.monitorable = false # Disable hurtbox
+		input_enabled = false # Disable player controls
+		reset_position = true
+		player_sprite.visible = false  # Hide the player sprite
+		disabled_timer -= delta
+	else:
+		if reset_position:
+			reset_position = false
+			position = starting_position  # Reset the position
+		# TODO: enable hurtbox
+		player_sprite.visible = true  # Hide the player sprite
+		hurtbox.monitorable = true # Enable hurtbox
+		input_enabled = true # Re-enable player controls
 
 func _physics_process(delta):
 	player_sprite.play(Animations.RUN)
@@ -61,22 +91,32 @@ func _physics_process(delta):
 		# Reset jump
 		jumped = false
 
-	# Jumping
-	if Input.is_action_just_pressed(InputActions.JUMP):
-		jump()
-	if Input.is_action_just_released(InputActions.JUMP):
-		cancel_jump()
+	if input_enabled:
+		# Jumping
+		if Input.is_action_just_pressed(InputActions.JUMP):
+			jump()
+		if Input.is_action_just_released(InputActions.JUMP):
+			cancel_jump()
+		# Slam
+		if Input.is_action_just_pressed(InputActions.SLAM):
+			slam()
+		if Input.is_action_just_released(InputActions.SLAM):
+			cancel_slam()
 	
 	# Bopping
 	if bopped:
 		if bop_duration > 0:
-			velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
+			if slammed:
+				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force * bop_slam_multiplier))
+			else:
+				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
 			bop_duration -= delta
 		else:
 			bopped = false
 
 	velocity = move_and_slide(velocity, Vector2.UP)
-
+	
+	# Coyote time
 	if was_on_floor and !is_on_floor():
 		jump_timer.start(coyote_time)
 	elif is_on_floor():
@@ -119,6 +159,15 @@ func cancel_jump():
 	if velocity.y < variable_jump_velocity_floor:
 		velocity.y = variable_jump_velocity_floor
 
+func slam():
+	"""Slam the player down"""
+	slammed = true
+	velocity.y = -jump_velocity * slam_velocity_multiplier
+
+func cancel_slam():
+	"""Cancel the slam if the player releases the slam button early."""
+	slammed = false
+
 func interpolate(current: float, target: float, delta: float) -> float:
 	"""Interpolate between current and target values by delta"""
 	if current < target:
@@ -140,6 +189,10 @@ func reset_scale():
 	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
 	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
 
+func disable_for_duration(duration: float):
+	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
+	disabled_timer = duration
+
 # Signals
 func _on_player_landed_on_enemy():
 	"""Perform actions when the player lands on an enemy"""
@@ -147,4 +200,8 @@ func _on_player_landed_on_enemy():
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	bopped = true
 	bop_duration = BOP_DURATION
+
+func _on_player_hurt():
+	"""Perform actions when the player is hurt"""
+	disable_for_duration(disabled_duration)
 
