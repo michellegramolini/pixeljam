@@ -14,6 +14,8 @@ export var friction: float = 800.0  # Adjust as needed
 export var coyote_time: float = 0.15  # Adjust the time in seconds
 export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 export var bop_force = -100.0
+export var bop_slam_multiplier = 1.5
+export var slam_velocity_multiplier = 1.5
 
 var velocity := Vector2.ZERO
 
@@ -38,6 +40,7 @@ var facing_direction = 1  # Initially facing right
 var jumped = false
 var bop_duration = BOP_DURATION
 var bopped = false
+var slammed = false
 
 func _ready():
 	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
@@ -66,11 +69,19 @@ func _physics_process(delta):
 		jump()
 	if Input.is_action_just_released(InputActions.JUMP):
 		cancel_jump()
+	# Slam
+	if Input.is_action_just_pressed(InputActions.SLAM):
+		slam()
+	if Input.is_action_just_released(InputActions.SLAM):
+		cancel_slam()
 	
 	# Bopping
 	if bopped:
 		if bop_duration > 0:
-			velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
+			if slammed:
+				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force * bop_slam_multiplier))
+			else:
+				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
 			bop_duration -= delta
 		else:
 			bopped = false
@@ -118,6 +129,15 @@ func cancel_jump():
 	"""Cancel the jump if the player releases the jump button early."""
 	if velocity.y < variable_jump_velocity_floor:
 		velocity.y = variable_jump_velocity_floor
+
+func slam():
+	"""Slam the player down"""
+	slammed = true
+	velocity.y = -jump_velocity * slam_velocity_multiplier
+
+func cancel_slam():
+	"""Cancel the slam if the player releases the slam button early."""
+	slammed = false
 
 func interpolate(current: float, target: float, delta: float) -> float:
 	"""Interpolate between current and target values by delta"""
