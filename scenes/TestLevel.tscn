@@ -157,6 +157,7 @@ jump_height = 35.0
 jump_time_to_peak = 0.2
 jump_time_to_descent = 0.17
 coyote_time = 0.2
+bop_slam_multiplier = 1.2
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 108, 81 )

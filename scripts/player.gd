@@ -15,7 +15,7 @@ export var coyote_time: float = 0.15  # Adjust the time in seconds
 export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 export var bop_force = -100.0
 export var bop_slam_multiplier = 1.5
-export var slam_velocity_multiplier = 1.5
+export var slam_velocity_multiplier = 1.2
 
 var velocity := Vector2.ZERO
 
@@ -70,7 +70,7 @@ func _process(delta):
 		if reset_position:
 			reset_position = false
 			position = starting_position  # Reset the position
-			
+
 		player_sprite.visible = true  # Hide the player sprite
 		hurtbox.monitorable = true # Enable hurtbox
 		input_enabled = true # Re-enable player controls
