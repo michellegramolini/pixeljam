@@ -51,14 +51,6 @@ func _process(delta):
 	var motion: Vector2
 	motion = move_and_slide(motion)
 
-	# for i in range(get_slide_count()):
-	# 	var collision = get_slide_collision(i)
-	# 	var collider = collision.collider
-	# 	if collider.is_in_group("Player"):
-	# 		# Handle collision with the Area2D
-	# 		pass
-	# 		# print("Colliding with Player")
-
 	if horizontal_motion:
 		# Calculate horizontal motion (left to right)
 		motion.x = sin(timer * motion_speed) * motion_distance
