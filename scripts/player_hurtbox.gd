@@ -7,6 +7,5 @@ func _ready():
 	connect("body_entered", self, "_on_body_entered")
 
 func _on_body_entered(body):
-	# TODO: make hurtable group
-	if body.is_in_group("Enemy"):
+	if body.is_in_group("Hazard"):
 		emit_signal("player_hurt")
