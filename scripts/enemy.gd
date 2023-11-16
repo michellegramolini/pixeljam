@@ -49,14 +49,15 @@ func _process(delta):
 
 	var motion: Vector2
 	motion = move_and_slide(motion)
-	
-	# FIXME:
-	# for i in range(get_slide_count()):
-	# 	var collision = get_slide_collision(i)
-	# 	var collider = collision.collider
-	# 	if collider.is_in_group("Hitbox"):  # Replace "AreaGroup" with your Area2D's group
-	# 		# Handle collision with the Area2D
-	# 		print("Colliding with Hitbox")
+
+	for i in range(get_slide_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.collider
+		if collider.is_in_group("Player"):  # Replace "AreaGroup" with your Area2D's group
+			# TODO:
+			# Handle collision with the Area2D
+			print("Colliding with Player")
+			# check if pogo is activated off of player node and don't do damage if it is
 
 	if horizontal_motion:
 		# Calculate horizontal motion (left to right)
@@ -74,9 +75,3 @@ func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
 	disabled_timer = duration
 
-# FIXME:
-# Collision detection
-# func _on_body_entered(body):
-# 	print("Enemy collided with body: " + str(body))
-# 	if body.is_in_group("Hitbox"):
-# 		disable_for_duration(disabled_duration)

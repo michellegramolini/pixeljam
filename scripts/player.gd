@@ -143,7 +143,7 @@ func reset_scale():
 # Signals
 func _on_player_landed_on_enemy():
 	"""Perform actions when the player lands on an enemy"""
-	print("Player landed on enemy!")
+	# print("Player landed on enemy!")
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	bopped = true
 	bop_duration = BOP_DURATION
