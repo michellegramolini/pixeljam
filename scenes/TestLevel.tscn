@@ -4,6 +4,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause_menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/LevelFlag.tscn" type="PackedScene" id=4]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -173,3 +174,6 @@ horizontal_motion = false
 motion_distance = 5.0
 
 [node name="pause_menu" parent="." instance=ExtResource( 4 )]
+
+[node name="LevelFlag" parent="." instance=ExtResource( 4 )]
+position = Vector2( 97, 14 )
