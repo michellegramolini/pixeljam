@@ -24,6 +24,7 @@ func _ready():
 	if player_node != null:
 		# Player node exists, assign it to a variable
 		player = player_node as KinematicBody2D  # Assuming the player is a KinematicBody2D
+		player.hitbox.connect("body_entered", self, "_on_player_landed_on_enemy")
 	else:
 		# Player node doesn't exist or couldn't be found
 		print("Cannot find Player node in the scene tree.")
@@ -50,14 +51,6 @@ func _process(delta):
 	var motion: Vector2
 	motion = move_and_slide(motion)
 
-	# for i in range(get_slide_count()):
-	# 	var collision = get_slide_collision(i)
-	# 	var collider = collision.collider
-	# 	if collider.is_in_group("Player"):
-	# 		# Handle collision with the Area2D
-	# 		pass
-	# 		# print("Colliding with Player")
-
 	if horizontal_motion:
 		# Calculate horizontal motion (left to right)
 		motion.x = sin(timer * motion_speed) * motion_distance
@@ -73,4 +66,12 @@ func _process(delta):
 func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
 	disabled_timer = duration
+
+# Signals
+func _on_player_landed_on_enemy(enemy: KinematicBody2D):
+	"""Perform actions when the player lands on an enemy"""
+	if enemy == self:
+		# Disable the enemy for a specific duration
+		disable_for_duration(disabled_duration)
+
 
