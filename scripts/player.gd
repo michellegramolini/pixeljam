@@ -51,6 +51,7 @@ var input_enabled = true
 func _ready():
 	# Connect signals
 	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
+	hitbox.connect("player_slammed_breakable", self, "_on_player_slammed_breakable")
 	hurtbox.connect("player_hurt", self, "_on_player_hurt")
 
 	# Store the initial position when the scene is ready
@@ -200,6 +201,12 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	bopped = true
 	bop_duration = BOP_DURATION
+
+func _on_player_slammed_breakable(breakable: StaticBody2D):
+	"""Perform actions when the player lands on a breakable"""
+	if slammed:
+		bopped = true
+		bop_duration = BOP_DURATION
 
 func _on_player_hurt():
 	"""Perform actions when the player is hurt"""
