@@ -27,5 +27,5 @@ func enable():
 
 func _on_player_smashed_breakable(breakable: StaticBody2D):
 	"""Called when the player smashes a breakable."""
-	if breakable == self:
+	if breakable == self && player.slammed:
 		disable()
