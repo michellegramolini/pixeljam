@@ -1,26 +1,5 @@
 extends Container
 
-var buttons = []
-var current_button_index = 0
-
-func _ready():
-	for child in get_children():
-		if child is TextureButton:
-			buttons.append(child)
-
-func _process(delta):
-	if Input.is_action_just_pressed("ui_up"):
-		navigate(-1)
-	elif Input.is_action_just_pressed("ui_down"):
-		navigate(1)
-
-func navigate(direction):
-	var new_index = (current_button_index + direction) % buttons.size()
-	if new_index < 0:
-		new_index = buttons.size() - 1
-	current_button_index = new_index
-	buttons[current_button_index].grab_focus()
-
 func go_to_level_select():
 	set_main_screen_visibility(false)
 	set_level_screen_visibility(true)
@@ -48,6 +27,5 @@ func set_level_screen_visibility(vis):
 	
 	
 func change_level(num):
-	print("loading level " + num)
 	get_tree().change_scene("res://Scenes/TestLevel.tscn") # hard coded until other scenes added
 	#get_tree().change_scene("res://Scenes/Levels/Level " + num + ".tscn")
