@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/quit hovers.png-d13b8a6918299a22d06f47b4a26f04ac.stex"
+path="res://.import/back normal.png-e532c7dac04dc358d415066596d0de60.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/UI/quit hovers.png"
-dest_files=[ "res://.import/quit hovers.png-d13b8a6918299a22d06f47b4a26f04ac.stex" ]
+source_file="res://art/UI/main_menu/back normal.png"
+dest_files=[ "res://.import/back normal.png-e532c7dac04dc358d415066596d0de60.stex" ]
 
 [params]
 

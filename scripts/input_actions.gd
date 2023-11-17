@@ -4,6 +4,7 @@ class_name InputActions
 const MOVE_RIGHT = "move_right"
 const MOVE_LEFT = "move_left"
 const JUMP = "jump"
+const PAUSE = "pause"
 const SLAM = "slam"
 
 # Usage:
