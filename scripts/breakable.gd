@@ -19,10 +19,11 @@ func disable():
 	set_collision_mask_bit(0, false)  # Disable collision mask
 	sprite.visible = false
 
+# TODO: might use later will delete if not
 func enable():
-	set_collision_layer_bit(0, false)  # Enable the collision layer
-	set_collision_mask_bit(0, false)  # Enable collision mask
-	sprite.visible = false
+	set_collision_layer_bit(0, true)  # Enable the collision layer
+	set_collision_mask_bit(0, true)  # Enable collision mask
+	sprite.visible = true
 
 func _on_player_smashed_breakable(breakable: StaticBody2D):
 	"""Called when the player smashes a breakable."""
