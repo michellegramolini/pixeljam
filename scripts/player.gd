@@ -202,7 +202,6 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	bopped = true
 	bop_duration = BOP_DURATION
 
-# TODO: only when slam
 func _on_player_slammed_breakable(breakable: StaticBody2D):
 	"""Perform actions when the player lands on a breakable"""
 	if slammed:
