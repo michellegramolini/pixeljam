@@ -27,7 +27,7 @@ func _ready():
 		player.hitbox.connect("body_entered", self, "_on_player_landed_on_enemy")
 	else:
 		# Player node doesn't exist or couldn't be found
-		print("Cannot find Player node in the scene tree.")
+		print(str(self) + " Cannot find Player node in the scene tree.")
 
 func _process(delta):
 	# Check if the enemy is disabled

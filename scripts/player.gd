@@ -4,6 +4,9 @@ extends KinematicBody2D
 const Animations = preload("res://scripts/animations.gd")
 const InputActions = preload("res://scripts/input_actions.gd")
 
+# Signals
+signal send_points(points)
+
 # Properties export
 export var speed = 200.0
 export var jump_height: float
@@ -51,6 +54,7 @@ var disabled_timer = 0.0  # Timer to track disabled time
 var starting_position: Vector2
 var reset_position = false
 var input_enabled = true
+var combo_count
 
 func _ready():
 	# Connect signals
@@ -60,6 +64,7 @@ func _ready():
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
+	combo_count = 0
 
 func _process(delta):
 	flip_sprite()
@@ -93,6 +98,8 @@ func _physics_process(delta):
 	var was_on_floor = is_on_floor()
 
 	if is_on_floor():
+		# Reset combo count
+		combo_count = 0
 		# Reset jump
 		jumped = false
 
@@ -200,12 +207,19 @@ func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
 	disabled_timer = duration
 
+func update_combo_count():
+	"""Update the combo count"""
+	combo_count += 1
+
 # Signals
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	# Audio
 	bop_sound.play()
 	# Indicate you bopped an enemy so we can maniuplate other processes
+	update_combo_count()
+	# TODO: send points to the HUD
+	emit_signal("send_points", 100 * combo_count)
 	bopped = true
 	bop_duration = BOP_DURATION
 

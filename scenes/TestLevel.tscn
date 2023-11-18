@@ -165,7 +165,7 @@ coyote_time = 0.2
 bop_slam_multiplier = 1.2
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 108, 81 )
+position = Vector2( 139, 63 )
 horizontal_motion = false
 motion_distance = 1.0
 
@@ -173,12 +173,12 @@ motion_distance = 1.0
 position = Vector2( 288, 68 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 47, 48 )
+position = Vector2( 109, 63 )
 horizontal_motion = false
 motion_distance = 5.0
 
 [node name="LevelFlag" parent="." instance=ExtResource( 4 )]
-position = Vector2( 97, 14 )
+position = Vector2( 107, -46 )
 
 [node name="pause_menu" parent="." instance=ExtResource( 5 )]
 

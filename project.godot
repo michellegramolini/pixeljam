@@ -107,6 +107,11 @@ pause={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="Boppable"
+
 [physics]
 
 common/enable_pause_aware_picking=true
