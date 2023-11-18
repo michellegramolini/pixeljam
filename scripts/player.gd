@@ -27,6 +27,10 @@ onready var jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
 onready var hitbox = $Hitbox
 onready var hurtbox = $Hurtbox
+onready var jump_sound = $JumpSound
+onready var slam_sound = $SlamSound
+onready var bop_sound = $BopSound
+onready var death_sound = $DeathSound
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -150,6 +154,8 @@ func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
 	if is_on_floor() or !jump_timer.is_stopped() and jumped == false:
 		jumped = true
+		# Audio
+		jump_sound.play()
 		# Animation
 		player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
 		reset_scale()
@@ -197,7 +203,8 @@ func disable_for_duration(duration: float):
 # Signals
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
-	# print("Player landed on enemy!")
+	# Audio
+	bop_sound.play()
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	bopped = true
 	bop_duration = BOP_DURATION
@@ -205,10 +212,16 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 func _on_player_slammed_breakable(breakable: StaticBody2D):
 	"""Perform actions when the player lands on a breakable"""
 	if slammed:
+		# Audio
+		slam_sound.play()
+		# Bop upwards
 		bopped = true
 		bop_duration = BOP_DURATION
 
 func _on_player_hurt():
 	"""Perform actions when the player is hurt"""
+	# Audio
+	death_sound.play()
+	# Disable the player sprite and collisions for a duration
 	disable_for_duration(disabled_duration)
 
