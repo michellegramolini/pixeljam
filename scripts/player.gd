@@ -30,6 +30,7 @@ onready var hurtbox = $Hurtbox
 onready var jump_sound = $JumpSound
 onready var slam_sound = $SlamSound
 onready var bop_sound = $BopSound
+onready var death_sound = $DeathSound
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -219,5 +220,8 @@ func _on_player_slammed_breakable(breakable: StaticBody2D):
 
 func _on_player_hurt():
 	"""Perform actions when the player is hurt"""
+	# Audio
+	death_sound.play()
+	# Disable the player sprite and collisions for a duration
 	disable_for_duration(disabled_duration)
 
