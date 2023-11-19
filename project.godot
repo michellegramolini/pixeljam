@@ -111,6 +111,8 @@ pause={
 
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Boppable"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Enemy"
 
 [physics]
 

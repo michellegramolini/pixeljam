@@ -39,11 +39,12 @@ extents = Vector2( 4, 1 )
 extents = Vector2( 5, 4 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
+collision_layer = 5
 collision_mask = 3
 script = ExtResource( 1 )
-jump_height = 100.0
-jump_time_to_peak = 0.5
-jump_time_to_descent = 0.4
+jump_height = 40.0
+jump_time_to_peak = 0.25
+jump_time_to_descent = 0.2
 friction = 900.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -59,6 +60,7 @@ wait_time = 0.15
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." groups=["Hitbox"]]
+collision_mask = 3
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -87,3 +89,6 @@ volume_db = -10.0
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
 volume_db = -10.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, 11 )

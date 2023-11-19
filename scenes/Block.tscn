@@ -6,6 +6,7 @@
 extents = Vector2( 8, 8 )
 
 [node name="Block" type="StaticBody2D"]
+collision_mask = 5
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -8, -8 )
