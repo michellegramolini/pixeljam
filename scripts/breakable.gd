@@ -12,7 +12,7 @@ func _ready():
 		player.hitbox.connect("body_entered", self, "_on_player_smashed_breakable")
 	else:
 		# Player node doesn't exist or couldn't be found
-		print("Cannot find Player node in the scene tree.")
+		print(str(self) + " Cannot find Player node in the scene tree.")
 
 func disable():
 	set_collision_layer_bit(0, false)  # Disable the collision layer
