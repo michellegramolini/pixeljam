@@ -143,7 +143,7 @@ func _physics_process(delta):
 		player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
 		reset_scale()
 
-	if is_on_ground():
+	if is_on_ground() and !slammed:
 		# Reset combo count if the player's feet touch the Environment
 		combo_count = 0
 
@@ -250,7 +250,7 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	bop_duration = BOP_DURATION
 
 func _on_player_slammed_breakable(breakable: StaticBody2D):
-	"""Perform actions when the player lands on a breakable"""
+	"""Perform actions when the player slams on a breakable"""
 	if slammed:
 		# Audio
 		slam_sound.play()

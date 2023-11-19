@@ -28,7 +28,7 @@ position = Vector2( 194, 122 )
 position = Vector2( 226, 122 )
 
 [node name="Block13" parent="." instance=ExtResource( 1 )]
-position = Vector2( 66, 122 )
+position = Vector2( 17, 107 )
 
 [node name="Block14" parent="." instance=ExtResource( 1 )]
 position = Vector2( 34, 122 )
@@ -52,25 +52,25 @@ position = Vector2( 300, 145 )
 position = Vector2( 258, 90 )
 
 [node name="Block6" parent="." instance=ExtResource( 1 )]
-position = Vector2( 114, 154 )
+position = Vector2( 195, 51 )
 
 [node name="Block7" parent="." instance=ExtResource( 1 )]
-position = Vector2( 130, 154 )
+position = Vector2( 194, 34 )
 
 [node name="Block8" parent="." instance=ExtResource( 1 )]
-position = Vector2( 146, 154 )
+position = Vector2( 210, 34 )
 
 [node name="Block9" parent="." instance=ExtResource( 1 )]
-position = Vector2( 162, 154 )
+position = Vector2( 258, 49 )
 
 [node name="Block10" parent="." instance=ExtResource( 1 )]
-position = Vector2( 178, 154 )
+position = Vector2( 286, 43 )
 
 [node name="Block11" parent="." instance=ExtResource( 1 )]
-position = Vector2( 98, 154 )
+position = Vector2( 179, 51 )
 
 [node name="Block12" parent="." instance=ExtResource( 1 )]
-position = Vector2( 82, 154 )
+position = Vector2( 163, 51 )
 
 [node name="Block21" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 179 )
@@ -159,13 +159,10 @@ position = Vector2( 288, 179 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 210, 90 )
 speed = 100.0
-jump_height = 40.0
-jump_time_to_peak = 0.25
-jump_time_to_descent = 0.2
 coyote_time = 0.2
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 160, 106 )
+position = Vector2( 136, 149 )
 horizontal_motion = false
 motion_distance = 1.0
 
@@ -173,7 +170,7 @@ motion_distance = 1.0
 position = Vector2( 290, 110 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 111, 105 )
+position = Vector2( 68, 149 )
 horizontal_motion = false
 motion_distance = 5.0
 
@@ -181,7 +178,7 @@ motion_distance = 5.0
 position = Vector2( 107, -46 )
 
 [node name="Boppable" parent="LevelFlag" instance=ExtResource( 9 )]
-position = Vector2( 29, 127 )
+position = Vector2( -49, 132 )
 
 [node name="pause_menu" parent="." instance=ExtResource( 5 )]
 
@@ -190,7 +187,7 @@ position = Vector2( 29, 127 )
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="Breakable2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 42, 97 )
+position = Vector2( 97, 141 )
 
 [node name="AudioManager" parent="." instance=ExtResource( 8 )]
 position = Vector2( -18, 22 )
