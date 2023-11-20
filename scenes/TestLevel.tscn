@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,13 +9,24 @@
 [ext_resource path="res://scenes/Breakable.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/AudioManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Boppable.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/TilemapSetup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/TilemapGround.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/TilemapMidground.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/TilemapGrass.tscn" type="PackedScene" id=12]
 
 [node name="TestLevel" type="Node2D"]
 position = Vector2( 125, 259 )
 
-[node name="Tilemaps" parent="." instance=ExtResource( 10 )]
-position = Vector2( -125, -266 )
+[node name="TilemapMidground" parent="." instance=ExtResource( 11 )]
+z_index = 0
+tile_data = PoolIntArray( -720890, 66, 131072, -720889, 66, 65538, -655355, 66, 131072, -655354, 66, 131073, -655353, 66, 65538, -589820, 66, 131072, -589819, 66, 131073, -589818, 66, 65538, -589817, 66, 65538, -524285, 66, 131072, -524284, 66, 131073, -524283, 66, 131073, -524282, 66, 131073, -524281, 66, 131073, -458750, 66, 131073, -458749, 66, 131073, -458748, 66, 131073, -458747, 66, 131073, -458746, 66, 131073, -458745, 66, 131073, -393215, 66, 131072, -393214, 66, 131073, -393213, 66, 131073, -393212, 66, 131073, -393211, 66, 131073, -393210, 66, 131073, -393209, 66, 131073 )
+
+[node name="TilemapGround" parent="." instance=ExtResource( 10 )]
+z_index = 0
+show_collision = true
+tile_data = PoolIntArray( -458757, 2, 0, -458756, 2, 1, -458755, 2, 1, -458754, 2, 1, -458753, 2, 1, -524288, 2, 1, -524287, 2, 1, -524286, 2, 1, -524285, 2, 1, -524284, 2, 1, -524283, 2, 1, -524282, 2, 1, -524281, 2, 2, -393221, 2, 65536, -393220, 2, 65537, -393219, 2, 65537, -393218, 2, 65537, -393217, 2, 65537, -458752, 2, 65537, -458751, 2, 65537, -458750, 2, 65537, -458749, 2, 65537, -458748, 2, 65537, -458747, 2, 65537, -458746, 2, 65537, -458745, 2, 65538, -327685, 2, 65536, -327684, 2, 65537, -327683, 2, 65537, -327682, 2, 65537, -327681, 2, 65537, -393216, 2, 65537, -393215, 2, 65537, -393214, 2, 65537, -393213, 2, 65537, -393212, 2, 65537, -393211, 2, 65537, -393210, 2, 65537, -393209, 2, 65538, -262149, 2, 131072, -262148, 2, 131073, -262147, 2, 131073, -262146, 2, 131073, -262145, 2, 131073, -327680, 2, 131073, -327679, 2, 131073, -327678, 2, 131073, -327677, 2, 131073, -327676, 2, 131073, -327675, 2, 131073, -327674, 2, 131073, -327673, 2, 131074 )
+
+[node name="TilemapGrass" parent="." instance=ExtResource( 12 )]
+tile_data = PoolIntArray( -524292, 65, 0, -589822, 65, 131072, -589821, 65, 131073, -589820, 65, 131074 )
 
 [node name="Block" parent="." instance=ExtResource( 1 )]
 position = Vector2( 210, 122 )
@@ -162,20 +173,20 @@ position = Vector2( 304, 179 )
 position = Vector2( 288, 179 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -58, -144 )
+position = Vector2( 19, -155 )
 speed = 100.0
 coyote_time = 0.2
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 136, 149 )
+position = Vector2( -81, -149 )
 horizontal_motion = false
 motion_distance = 1.0
 
 [node name="Enemy2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 290, 110 )
+position = Vector2( 27, -171 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 68, 149 )
+position = Vector2( -23, -139 )
 horizontal_motion = false
 motion_distance = 5.0
 
@@ -197,7 +208,7 @@ margin_right = 127.0
 margin_bottom = 258.0
 
 [node name="Breakable2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 97, 141 )
+position = Vector2( 16, -138 )
 
 [node name="AudioManager" parent="." instance=ExtResource( 8 )]
 position = Vector2( -18, 22 )
