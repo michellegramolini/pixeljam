@@ -58,10 +58,10 @@ var combo_count
 
 func _ready():
 	# Connect signals
-	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
-	hitbox.connect("player_slammed_breakable", self, "_on_player_slammed_breakable")
-	hitbox.connect("player_landed_on_boppable", self, "_on_player_landed_on_boppable")
-	hurtbox.connect("player_hurt", self, "_on_player_hurt")
+	hitbox.connect("player_landed_on_enemy", self, "_on_Player_landed_on_enemy")
+	hitbox.connect("player_slammed_breakable", self, "_on_Player_slammed_breakable")
+	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
+	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
@@ -238,7 +238,7 @@ func update_combo_count():
 	combo_count += 1
 
 # Signals
-func _on_player_landed_on_enemy(enemy: KinematicBody2D):
+func _on_Player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	# Audio
 	bop_sound.play()
@@ -249,7 +249,7 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	bopped = true
 	bop_duration = BOP_DURATION
 
-func _on_player_slammed_breakable(breakable: StaticBody2D):
+func _on_Player_slammed_breakable(breakable: StaticBody2D):
 	"""Perform actions when the player slams on a breakable"""
 	if slammed:
 		# Audio
@@ -258,7 +258,7 @@ func _on_player_slammed_breakable(breakable: StaticBody2D):
 		bopped = true
 		bop_duration = BOP_DURATION
 
-func _on_player_landed_on_boppable(boppable):
+func _on_Player_landed_on_boppable(boppable):
 	"""Perform actions when the player lands on a boppable"""
 	# Audio
 	bop_sound.play()
@@ -266,7 +266,7 @@ func _on_player_landed_on_boppable(boppable):
 	bopped = true
 	bop_duration = BOP_DURATION
 
-func _on_player_hurt():
+func _on_Player_hurt():
 	"""Perform actions when the player is hurt"""
 	# Audio
 	death_sound.play()

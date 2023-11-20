@@ -7,20 +7,20 @@ const Animations = preload("res://scripts/animations.gd")
 export var horizontal_motion: bool = true
 export var motion_distance: float = 100.0
 export var motion_speed: float = 2.0
-export var disabled_duration: float = 2.0
 
 var starting_position: Vector2
 var timer: float = 0.0
-var disabled_timer = 0.0  # Timer to track disabled time
 var player
 
 # Onready variables
 onready var enemy_sprite = $AnimatedSprite
 onready var collider = $CollisionShape2D
 onready var player_node = get_node("../Player")
+onready var level_manager = get_node("../LevelManager")
 
 func _ready():
 	starting_position = global_position
+	enable()
 
 	if player_node != null:
 		# Player node exists, assign it to a variable
@@ -30,22 +30,14 @@ func _ready():
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
 
-func _process(delta):
-	# Check if the enemy is disabled
-	if disabled_timer > 0:
-		# Disable collisions for a specific duration
-		set_collision_layer_bit(0, false)  # Disable the collision layer temporarily
-		set_collision_mask_bit(0, false)  # Disable collision mask temporarily
-		collider.disabled = true
-		enemy_sprite.visible = false  # Hide the enemy sprite
-		disabled_timer -= delta
+	if level_manager != null:
+		# Level manager node exists, connect to the reset signal
+		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")
 	else:
-		# Enable collisions after the disabled duration
-		set_collision_layer_bit(0, true)  # Enable the collision layer
-		set_collision_mask_bit(0, true)  # Enable collision mask
-		collider.disabled = false
-		enemy_sprite.visible = true  # Hide the enemy sprite
-		
+		# Level manager node doesn't exist or couldn't be found
+		print(str(self) + " Cannot find LevelManager node in the scene tree.")
+
+func _process(delta):
 	# Update the animation
 	enemy_sprite.play(Animations.IDLE)
 
@@ -65,16 +57,28 @@ func _process(delta):
 
 	global_position = starting_position + motion
 
+func disable():
+	"""Disable collisions and sprites on an enemy."""
+	set_collision_layer_bit(0, false)  # Disable the collision layer temporarily
+	set_collision_mask_bit(0, false)  # Disable collision mask temporarily
+	collider.disabled = true
+	enemy_sprite.visible = false  # Hide the enemy sprite
 
-func disable_for_duration(duration: float):
-	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
-	disabled_timer = duration
+func enable():
+	"""Enable collisions and sprites on an enemy."""
+	set_collision_layer_bit(0, true)  # Enable the collision layer
+	set_collision_mask_bit(0, true)  # Enable collision mask
+	collider.disabled = false
+	enemy_sprite.visible = true  # Hide the enemy sprite
 
 # Signals
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	if enemy == self:
-		# Disable the enemy for a specific duration
-		disable_for_duration(disabled_duration)
+		call_deferred("disable")
 
+# TODO: reset signal/event. on reset enable character
+func _on_LevelManager_reset_stage():
+	"""Perform actions when the level manager resets the stage."""
+	call_deferred("enable")
 

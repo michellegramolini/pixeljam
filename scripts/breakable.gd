@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 onready var player_node = get_node("../Player")
+onready var level_manager = get_node("../LevelManager")
 onready var sprite = $Sprite
 onready var collider = $CollisionShape2D
 
@@ -14,6 +15,14 @@ func _ready():
 	else:
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
+
+	if level_manager != null:
+		# Level manager node exists, connect to the reset signal
+		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")
+	else:
+		# Level manager node doesn't exist or couldn't be found
+		print(str(self) + " Cannot find LevelManager node in the scene tree.")
+
 
 func disable():
 	set_collision_layer_bit(0, false)  # Disable the collision layer
@@ -31,4 +40,8 @@ func enable():
 func _on_player_smashed_breakable(breakable: StaticBody2D):
 	"""Called when the player smashes a breakable."""
 	if breakable == self && player.slammed:
-		disable()
+		call_deferred("disable")
+
+func _on_LevelManager_reset_stage():
+	"""Called when the level manager resets the stage."""
+	call_deferred("enable")
