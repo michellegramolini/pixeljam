@@ -2,6 +2,7 @@ extends StaticBody2D
 
 onready var player_node = get_node("../Player")
 onready var sprite = $Sprite
+onready var collider = $CollisionShape2D
 
 var player
 
@@ -17,12 +18,14 @@ func _ready():
 func disable():
 	set_collision_layer_bit(0, false)  # Disable the collision layer
 	set_collision_mask_bit(0, false)  # Disable collision mask
+	collider.disabled = true
 	sprite.visible = false
 
 # TODO: might use later will delete if not
 func enable():
 	set_collision_layer_bit(0, true)  # Enable the collision layer
 	set_collision_mask_bit(0, true)  # Enable collision mask
+	collider.disabled = false
 	sprite.visible = true
 
 func _on_player_smashed_breakable(breakable: StaticBody2D):
