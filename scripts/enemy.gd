@@ -7,15 +7,16 @@ const Animations = preload("res://scripts/animations.gd")
 export var horizontal_motion: bool = true
 export var motion_distance: float = 100.0
 export var motion_speed: float = 2.0
+export var disabled_duration: float = 2.0
 
 var starting_position: Vector2
 var timer: float = 0.0
-var disabled_duration = 1.0  # Duration to disable collisions
 var disabled_timer = 0.0  # Timer to track disabled time
 var player
 
 # Onready variables
 onready var enemy_sprite = $AnimatedSprite
+onready var collider = $CollisionShape2D
 onready var player_node = get_node("../Player")
 
 func _ready():
@@ -27,7 +28,7 @@ func _ready():
 		player.hitbox.connect("body_entered", self, "_on_player_landed_on_enemy")
 	else:
 		# Player node doesn't exist or couldn't be found
-		print("Cannot find Player node in the scene tree.")
+		print(str(self) + " Cannot find Player node in the scene tree.")
 
 func _process(delta):
 	# Check if the enemy is disabled
@@ -35,12 +36,14 @@ func _process(delta):
 		# Disable collisions for a specific duration
 		set_collision_layer_bit(0, false)  # Disable the collision layer temporarily
 		set_collision_mask_bit(0, false)  # Disable collision mask temporarily
+		collider.disabled = true
 		enemy_sprite.visible = false  # Hide the enemy sprite
 		disabled_timer -= delta
 	else:
 		# Enable collisions after the disabled duration
 		set_collision_layer_bit(0, true)  # Enable the collision layer
 		set_collision_mask_bit(0, true)  # Enable collision mask
+		collider.disabled = false
 		enemy_sprite.visible = true  # Hide the enemy sprite
 		
 	# Update the animation

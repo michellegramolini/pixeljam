@@ -4,6 +4,9 @@ extends KinematicBody2D
 const Animations = preload("res://scripts/animations.gd")
 const InputActions = preload("res://scripts/input_actions.gd")
 
+# Signals
+signal send_points(points)
+
 # Properties export
 export var speed = 200.0
 export var jump_height: float
@@ -51,15 +54,18 @@ var disabled_timer = 0.0  # Timer to track disabled time
 var starting_position: Vector2
 var reset_position = false
 var input_enabled = true
+var combo_count
 
 func _ready():
 	# Connect signals
 	hitbox.connect("player_landed_on_enemy", self, "_on_player_landed_on_enemy")
 	hitbox.connect("player_slammed_breakable", self, "_on_player_slammed_breakable")
+	hitbox.connect("player_landed_on_boppable", self, "_on_player_landed_on_boppable")
 	hurtbox.connect("player_hurt", self, "_on_player_hurt")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
+	combo_count = 0
 
 func _process(delta):
 	flip_sprite()
@@ -120,7 +126,7 @@ func _physics_process(delta):
 			bopped = false
 
 	velocity = move_and_slide(velocity, Vector2.UP)
-	
+
 	# Coyote time
 	if was_on_floor and !is_on_floor():
 		jump_timer.start(coyote_time)
@@ -137,6 +143,10 @@ func _physics_process(delta):
 		player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
 		reset_scale()
 
+	if is_on_ground() and !slammed:
+		# Reset combo count if the player's feet touch the Environment
+		combo_count = 0
+
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
@@ -149,6 +159,29 @@ func get_input_velocity() -> float:
 		horizontal_velocity -= 1.0
 	
 	return horizontal_velocity
+
+func is_on_ground():
+	"""Check if the player's feet are colliding specifically with Environment layer"""
+	var ray_length = 20  # Length of the ray below the player's feet
+	var ray_cast_to = Vector2(0, 1) * ray_length  # Ray direction
+
+	# Perform a raycast from the player's feet downward
+	var ray_cast = $RayCast2D  # RayCast2D node is a child of the player
+
+	ray_cast.cast_to = ray_cast_to
+	ray_cast.force_raycast_update()  # Force an immediate update of the raycast
+
+	# Check if the raycast collides with the "Environment" layer
+	if ray_cast.is_colliding():
+		var collider = ray_cast.get_collider()
+		var collision_layer = collider.get_collision_layer()
+		
+		# Check if the collision layer matches the "Environment" layer
+		if collision_layer == 1:
+			return true
+
+	return false
+	
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
@@ -200,17 +233,24 @@ func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
 	disabled_timer = duration
 
+func update_combo_count():
+	"""Update the combo count"""
+	combo_count += 1
+
 # Signals
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	# Audio
 	bop_sound.play()
 	# Indicate you bopped an enemy so we can maniuplate other processes
+	update_combo_count()
+	# TODO: send points to the HUD
+	emit_signal("send_points", 100 * combo_count)
 	bopped = true
 	bop_duration = BOP_DURATION
 
 func _on_player_slammed_breakable(breakable: StaticBody2D):
-	"""Perform actions when the player lands on a breakable"""
+	"""Perform actions when the player slams on a breakable"""
 	if slammed:
 		# Audio
 		slam_sound.play()
@@ -218,10 +258,17 @@ func _on_player_slammed_breakable(breakable: StaticBody2D):
 		bopped = true
 		bop_duration = BOP_DURATION
 
+func _on_player_landed_on_boppable(boppable):
+	"""Perform actions when the player lands on a boppable"""
+	# Audio
+	bop_sound.play()
+	# Bop upwards
+	bopped = true
+	bop_duration = BOP_DURATION
+
 func _on_player_hurt():
 	"""Perform actions when the player is hurt"""
 	# Audio
 	death_sound.play()
 	# Disable the player sprite and collisions for a duration
 	disable_for_duration(disabled_duration)
-

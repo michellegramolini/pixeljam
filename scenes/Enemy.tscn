@@ -24,6 +24,8 @@ animations = [ {
 
 [node name="Enemy" type="KinematicBody2D" groups=["Enemy", "Hazard"]]
 position = Vector2( 144, 112 )
+collision_layer = 8
+collision_mask = 5
 script = ExtResource( 2 )
 motion_distance = 10.0
 

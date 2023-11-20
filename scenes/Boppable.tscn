@@ -5,16 +5,17 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[node name="Block" type="StaticBody2D"]
-collision_mask = 5
+[node name="Boppable" type="StaticBody2D" groups=["Boppable"]]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -8, -8 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -8, -8 )
 scale = Vector2( 1.14286, 1.14286 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 161, 49, 14, 14 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -8, -8 )
-shape = SubResource( 1 )
+region_rect = Rect2( 113, 33, 14, 14 )
