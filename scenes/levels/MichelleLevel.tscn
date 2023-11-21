@@ -50,6 +50,3 @@ position = Vector2( 51, 183 )
 
 [node name="Spikes" parent="." instance=ExtResource( 12 )]
 position = Vector2( 264, 200 )
-
-[node name="Spikes2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 249, 200 )

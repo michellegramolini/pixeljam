@@ -3,9 +3,9 @@
 [ext_resource path="res://art/Sprites/Spikes.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.5, 6.5 )
+extents = Vector2( 5.5, 6.5 )
 
-[node name="Spikes" type="StaticBody2D" groups=["Hazard"]]
+[node name="Spikes" type="StaticBody2D" groups=["Hazard", "Spikes"]]
 collision_mask = 5
 
 [node name="Sprite" type="Sprite" parent="."]

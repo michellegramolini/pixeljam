@@ -20,8 +20,6 @@ export var bop_force = -100.0
 export var bop_slam_multiplier = 1.5
 export var slam_velocity_multiplier = 1.2
 
-var velocity := Vector2.ZERO
-
 # Onready variables
 onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
@@ -55,12 +53,14 @@ var starting_position: Vector2
 var reset_position = false
 var input_enabled = true
 var combo_count
+var velocity := Vector2.ZERO
 
 func _ready():
 	# Connect signals
 	hitbox.connect("player_landed_on_enemy", self, "_on_Player_landed_on_enemy")
 	hitbox.connect("player_slammed_breakable", self, "_on_Player_slammed_breakable")
 	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
+	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
 
 	# Store the initial position when the scene is ready
@@ -255,6 +255,13 @@ func update_combo_count():
 	"""Update the combo count"""
 	combo_count += 1
 
+func die():
+	"""Kill the player"""
+	# Audio
+	death_sound.play()
+	# Disable the player sprite and collisions for a duration
+	disable_for_duration(disabled_duration)
+
 # Signals
 func _on_Player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
@@ -286,7 +293,8 @@ func _on_Player_landed_on_boppable(boppable):
 
 func _on_Player_hurt():
 	"""Perform actions when the player is hurt"""
-	# Audio
-	death_sound.play()
-	# Disable the player sprite and collisions for a duration
-	disable_for_duration(disabled_duration)
+	die()
+
+func _on_Player_landed_on_spikes():
+	"""Perform actions when the player lands on spikes"""
+	die()
