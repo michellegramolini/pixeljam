@@ -73,21 +73,22 @@ func _process(delta):
 	# Check if the player is disabled
 	if disabled_timer > 0:
 		hurtbox.monitorable = false # Disable hurtbox
+		hitbox.monitorable = false # Disable hitbox
 		input_enabled = false # Disable player controls
-		reset_position = true
+		position = starting_position  # Reset the position
+		slammed = false # Reset slam
+		bopped = false # Reset bop
 		player_sprite.visible = false  # Hide the player sprite
 		disabled_timer -= delta
 	else:
-		if reset_position:
-			reset_position = false
-			position = starting_position  # Reset the position
-
 		player_sprite.visible = true  # Hide the player sprite
 		hurtbox.monitorable = true # Enable hurtbox
+		hitbox.monitorable = true # Enable hitbox
 		input_enabled = true # Re-enable player controls
 
 func _physics_process(delta):
-	player_sprite.play(Animations.RUN)
+	# player_sprite.play(Animations.RUN)
+	animate()
 
 	velocity.y += get_gravity() * delta
 
@@ -118,9 +119,9 @@ func _physics_process(delta):
 	if bopped:
 		if bop_duration > 0:
 			if slammed:
-				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force * bop_slam_multiplier))
+				velocity = move_and_slide(Vector2(velocity.x, bop_force * bop_slam_multiplier))
 			else:
-				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
+				velocity = move_and_slide(Vector2(velocity.x, bop_force))
 			bop_duration -= delta
 		else:
 			bopped = false
@@ -140,8 +141,8 @@ func _physics_process(delta):
 	if is_on_floor() and is_falling:
 		is_falling = false
 		velocity = Vector2.ZERO
-		player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
-		reset_scale()
+		# player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
+		# reset_scale()
 
 	if is_on_ground() and !slammed:
 		# Reset combo count if the player's feet touch the Environment
@@ -182,6 +183,23 @@ func is_on_ground():
 
 	return false
 	
+func animate():
+	"""Animate the player"""
+	if !is_on_floor() and slammed:
+		player_sprite.play(Animations.SLAM)
+	elif is_on_floor():
+		if velocity.x != 0:
+			player_sprite.play(Animations.RUN)
+		else:
+			if slammed:
+				player_sprite.play(Animations.SLAM)
+			else:
+				player_sprite.play(Animations.IDLE)
+	else:
+		if velocity.y < 0:
+			player_sprite.play(Animations.FALL)
+		else:
+			player_sprite.play(Animations.FALL)
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
@@ -190,8 +208,8 @@ func jump():
 		# Audio
 		jump_sound.play()
 		# Animation
-		player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
-		reset_scale()
+		# player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
+		# reset_scale()
 		velocity.y = jump_velocity
 
 func cancel_jump():
@@ -202,7 +220,7 @@ func cancel_jump():
 func slam():
 	"""Slam the player down"""
 	slammed = true
-	velocity.y = -jump_velocity * slam_velocity_multiplier
+	# velocity.y = -jump_velocity * slam_velocity_multiplier
 
 func cancel_slam():
 	"""Cancel the slam if the player releases the slam button early."""
@@ -224,10 +242,10 @@ func flip_sprite():
 		facing_direction = 1 if input_x > 0 else -1
 		player_sprite.scale.x = abs(player_sprite.scale.x) * facing_direction
 
-func reset_scale():
-	"""Essentially a coroutine to reset the scale of the player sprite after a jump."""
-	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
-	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
+# func reset_scale():
+# 	"""Essentially a coroutine to reset the scale of the player sprite after a jump."""
+# 	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
+# 	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
 
 func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""

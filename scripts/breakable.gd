@@ -1,24 +1,26 @@
 extends StaticBody2D
 
-onready var player_node = get_node("../Player")
-onready var level_manager = get_node("../LevelManager")
+# onready var player_node = get_node("../Player")
+onready var player_nodes = get_tree().get_nodes_in_group("Player")
+onready var manager_nodes = get_tree().get_nodes_in_group("LevelManager")
+# onready var level_manager = get_node("../LevelManager")
 onready var sprite = $Sprite
 onready var collider = $CollisionShape2D
 
 var player
 
 func _ready():
-	if player_node != null:
+	if player_nodes != null and len(player_nodes) > 0:
 		# Player node exists, assign it to a variable
-		player = player_node as KinematicBody2D  # Assuming the player is a KinematicBody2D
-		player.hitbox.connect("body_entered", self, "_on_player_smashed_breakable")
+		player = player_nodes[0]
+		player.get_node("Hitbox").connect("body_entered", self, "_on_player_smashed_breakable")
 	else:
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
 
-	if level_manager != null:
+	if manager_nodes != null and len(manager_nodes) > 0:
 		# Level manager node exists, connect to the reset signal
-		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")
+		manager_nodes[0].connect("reset_stage", self, "_on_LevelManager_reset_stage")
 	else:
 		# Level manager node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find LevelManager node in the scene tree.")

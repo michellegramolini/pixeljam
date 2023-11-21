@@ -11,28 +11,31 @@ export var motion_speed: float = 2.0
 var starting_position: Vector2
 var timer: float = 0.0
 var player
+var previous_direction = Vector2.ZERO
 
 # Onready variables
 onready var enemy_sprite = $AnimatedSprite
 onready var collider = $CollisionShape2D
-onready var player_node = get_node("../Player")
-onready var level_manager = get_node("../LevelManager")
+onready var player_nodes = get_tree().get_nodes_in_group("Player")
+onready var manager_nodes = get_tree().get_nodes_in_group("LevelManager")
+# onready var player_node = get_node("../Player")
+# onready var level_manager = get_node("../LevelManager")
 
 func _ready():
 	starting_position = global_position
 	enable()
 
-	if player_node != null:
+	if player_nodes != null and len(player_nodes) > 0:
 		# Player node exists, assign it to a variable
-		player = player_node as KinematicBody2D  # Assuming the player is a KinematicBody2D
-		player.hitbox.connect("body_entered", self, "_on_player_landed_on_enemy")
+		player = player_nodes[0]
+		player.get_node("Hitbox").connect("body_entered", self, "_on_player_landed_on_enemy")
 	else:
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
 
-	if level_manager != null:
+	if manager_nodes != null and len(manager_nodes) > 0:
 		# Level manager node exists, connect to the reset signal
-		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")
+		manager_nodes[0].connect("reset_stage", self, "_on_LevelManager_reset_stage")
 	else:
 		# Level manager node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find LevelManager node in the scene tree.")
@@ -54,8 +57,26 @@ func _process(delta):
 		# Calculate vertical motion (up and down)
 		motion.x = 0  # No horizontal movement
 		motion.y = sin(timer * motion_speed) * motion_distance
+	
+	# Flip the sprite based on the direction of horizontal motion
+	if motion.x != 0 and motion.x * previous_direction.x < 0:
+		# enemy_sprite.scale.x *= -1  # Flip the sprite horizontally
+		# var rotation = enemy_sprite.get_rotation_degrees()
+		# enemy_sprite.set_rotation_degrees(rotation + 90)
+		rotate_object_on_x_axis(180)
 
 	global_position = starting_position + motion
+	previous_direction = motion
+
+func rotate_object_on_x_axis(degrees_to_rotate):
+	var rotation_radians = deg2rad(degrees_to_rotate)  # Convert degrees to radians
+	var cosine = cos(rotation_radians)
+	var sine = sin(rotation_radians)
+
+	# Apply rotation on the Y-axis (to simulate X-axis rotation)
+	var current_scale = scale
+	var new_scale = Vector2(current_scale.x * cosine, current_scale.y)
+	scale = new_scale
 
 func disable():
 	"""Disable collisions and sprites on an enemy."""
