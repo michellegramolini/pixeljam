@@ -8,7 +8,7 @@ var start_time: int = 0
 var level_manager: Node = null
 
 func _ready():
-	if manager_nodes != null:
+	if manager_nodes != null and len(manager_nodes) > 0:
 		# LevelManager node exists, assign it to a variable
 		level_manager = manager_nodes[0]
 		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")

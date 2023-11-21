@@ -22,7 +22,7 @@ func _ready():
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
 
-	if manager_nodes != null:
+	if manager_nodes != null and len(manager_nodes) > 0:
 		# LevelManager node exists, assign it to a variable
 		level_manager = manager_nodes[0]
 		level_manager.connect("reset_stage", self, "_on_LevelManager_reset_stage")
