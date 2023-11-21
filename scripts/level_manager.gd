@@ -18,6 +18,7 @@ func _ready():
 		print(str(self) + " Cannot find Player in the scene tree.")
 
 func _on_LevelFlag_stage_clear():
+	# TODO: display level clear menu/scene
 	print("Stage Clear!")
 	emit_signal("reset_stage")
 
