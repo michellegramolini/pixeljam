@@ -2,7 +2,7 @@
 
 [ext_resource path="res://audio/music.wav" type="AudioStream" id=1]
 
-[node name="AudioManager" type="Node2D"]
+[node name="MusicManager" type="Node2D"]
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )
