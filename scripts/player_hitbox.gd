@@ -14,7 +14,6 @@ func _on_body_entered(body):
 	if body.is_in_group("Breakable"):
 		emit_signal("player_slammed_breakable", null)
 	if body.is_in_group("Boppable"):
-		print("Boppable")
 		emit_signal("player_landed_on_boppable", null)
 
 
