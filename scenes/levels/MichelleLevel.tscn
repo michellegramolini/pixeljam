@@ -27,6 +27,12 @@ horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 2.0
 
+[node name="Eyeball2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 195, 166 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 2.0
+
 [node name="Slime" parent="." instance=ExtResource( 2 )]
 position = Vector2( 392, 106 )
 

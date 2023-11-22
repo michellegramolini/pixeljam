@@ -136,6 +136,7 @@ func _physics_process(delta):
 				velocity.y = jump_velocity * bop_multiplier
 			bop_duration -= delta
 		else:
+			slammed = false
 			bopped = false
 
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -156,7 +157,7 @@ func _physics_process(delta):
 		# player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
 		# reset_scale()
 
-	if is_on_ground() and !slammed:
+	if is_on_ground() and velocity.y == 0.0:
 		# Reset combo count if the player's feet touch the Environment
 		combo_count = 0
 
@@ -207,11 +208,14 @@ func animate():
 				player_sprite.play(Animations.SLAM)
 			else:
 				player_sprite.play(Animations.IDLE)
-	else:
+	else: # In the air
 		if velocity.y < 0:
-			player_sprite.play(Animations.JUMP)
-		else:
-			player_sprite.play(Animations.FALL)
+			if slammed:
+				player_sprite.play(Animations.SLAM)
+			else:
+				player_sprite.play(Animations.JUMP)
+		else: # Falling
+				player_sprite.play(Animations.FALL)
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
@@ -237,7 +241,8 @@ func slam():
 
 func cancel_slam():
 	"""Cancel the slam if the player releases the slam button early."""
-	slammed = false
+	if is_on_floor():
+		slammed = false
 
 func interpolate(current: float, target: float, delta: float) -> float:
 	"""Interpolate between current and target values by delta"""
