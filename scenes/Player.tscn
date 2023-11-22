@@ -78,28 +78,30 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 12.5 )
+extents = Vector2( 7, 11.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 7, 1.625 )
 
 [sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 8, 13 )
+extents = Vector2( 8, 11 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_layer = 5
-collision_mask = 11
+collision_mask = 9
 script = ExtResource( 1 )
 speed = 100.0
-jump_height = 65.0
-jump_time_to_peak = 0.35
-jump_time_to_descent = 0.3
+jump_height = 55.0
+jump_time_to_peak = 0.28
+jump_time_to_descent = 0.24
 friction = 900.0
-bop_slam_multiplier = 1.8
+bop_slam_multiplier = 0.65
+bop_multiplier = 0.25
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = 2
 frames = SubResource( 5 )
-animation = "idle"
+animation = "run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3.5 )
@@ -121,6 +123,7 @@ shape = SubResource( 6 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0, 2 )
 shape = SubResource( 18 )
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
