@@ -28,7 +28,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 11.6667
+radius = 15.0
 
 [node name="Eyeball" type="KinematicBody2D" groups=["Enemy", "Hazard"]]
 position = Vector2( 144, 112 )
