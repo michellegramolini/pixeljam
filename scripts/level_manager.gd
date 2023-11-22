@@ -4,9 +4,13 @@ signal reset_stage
 
 onready var level_flag = get_node("../LevelFlag")
 onready var player_hurtbox = get_node("../Player/Hurtbox")
+onready var player_hitbox = get_node("../Player/Hitbox")
+
+# TODO: add for hitbox
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Do these even work like i think they do?
 	if level_flag != null:
 		level_flag.connect("stage_clear", self, "_on_LevelFlag_stage_clear")
 	else:
@@ -14,6 +18,11 @@ func _ready():
 
 	if player_hurtbox != null:
 		player_hurtbox.connect("player_hurt", self, "_on_Player_hurt")
+	else:
+		print(str(self) + " Cannot find Player in the scene tree.")
+
+	if player_hitbox != null:
+		player_hitbox.connect("player_landed_on_spikes", self, "_on_Player_hurt")
 	else:
 		print(str(self) + " Cannot find Player in the scene tree.")
 
