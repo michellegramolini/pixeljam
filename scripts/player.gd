@@ -156,7 +156,7 @@ func _physics_process(delta):
 		# player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
 		# reset_scale()
 
-	if is_on_ground() and !slammed:
+	if is_on_ground() and velocity.y == 0.0:
 		# Reset combo count if the player's feet touch the Environment
 		combo_count = 0
 
@@ -282,7 +282,7 @@ func _on_Player_landed_on_enemy(enemy: KinematicBody2D):
 	bop_sound.play()
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	update_combo_count()
-	# TODO: send points to the HUD
+	# Update HUD points counter
 	emit_signal("send_points", 100 * combo_count)
 	bopped = true
 	bop_duration = BOP_DURATION

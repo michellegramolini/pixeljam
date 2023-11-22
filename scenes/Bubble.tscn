@@ -40,14 +40,15 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=9]
-radius = 11.5109
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 13.125, 13.125 )
 
 [node name="Bubble" type="StaticBody2D" groups=["Boppable"]]
 scale = Vector2( 0.8, 0.8 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
+disabled_duration = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 1 )
@@ -55,5 +56,6 @@ frames = SubResource( 6 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -0.5 )
+position = Vector2( -0.625, 0.624999 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 9 )

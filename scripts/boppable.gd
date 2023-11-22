@@ -11,7 +11,7 @@ onready var sprite = $AnimatedSprite
 onready var collider = $CollisionShape2D
 
 var player
-var disabled_duration = 1.0  # Duration to disable collisions
+export var disabled_duration = 1.0  # Duration to disable collisions
 var disabled_timer = 0.0  # Timer to track disabled time
 
 func _ready():

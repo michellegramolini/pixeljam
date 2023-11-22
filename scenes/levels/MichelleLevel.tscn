@@ -27,8 +27,14 @@ horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 2.0
 
+[node name="Eyeball2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 195, 166 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 2.0
+
 [node name="Slime" parent="." instance=ExtResource( 2 )]
-position = Vector2( 392, 106 )
+position = Vector2( 384, 105 )
 
 [node name="MusicManager" parent="." instance=ExtResource( 7 )]
 
@@ -77,9 +83,9 @@ text = "Jump 48px wide max"
 
 [node name="Label3" type="Label" parent="."]
 margin_left = 329.0
-margin_top = 75.0
+margin_top = 64.0
 margin_right = 472.0
-margin_bottom = 106.0
+margin_bottom = 95.0
 text = "Smash max 
 80 px high"
 
