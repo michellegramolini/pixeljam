@@ -106,5 +106,5 @@ collision_mask = 11
 jump_height = 55.0
 jump_time_to_peak = 0.28
 jump_time_to_descent = 0.24
-bop_slam_multiplier = 0.6
+bop_slam_multiplier = 0.65
 bop_multiplier = 0.25
