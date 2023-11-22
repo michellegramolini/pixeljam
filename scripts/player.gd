@@ -16,16 +16,18 @@ export var acceleration: float = 1000.0  # Adjust as needed
 export var friction: float = 800.0  # Adjust as needed
 export var coyote_time: float = 0.15  # Adjust the time in seconds
 export var variable_jump_velocity_floor = -80.0 # Adjust as needed
-export var bop_force = -100.0
+# export var bop_force = -100.0
 export var bop_slam_multiplier = 1.5
 export var slam_velocity_multiplier = 1.2
-export var x_jump_fac = 1
+export var x_jump_fac = 1.0
+# export var bop_duration = 0.2
+export var bop_multiplier = 1.0 # between 0 and 1
 
 # Onready variables
 onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
-onready var jump_timer: Timer = $CoyoteTimer
+onready var coyote_jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
 onready var hitbox = $Hitbox
 onready var hurtbox = $Hurtbox
@@ -126,9 +128,12 @@ func _physics_process(delta):
 	if bopped:
 		if bop_duration > 0:
 			if slammed:
-				velocity = move_and_slide(Vector2(velocity.x, bop_force * bop_slam_multiplier))
+				# velocity = move_and_slide(Vector2(velocity.x, bop_force * bop_slam_multiplier))
+				# velocity.y = bop_force * bop_slam_multiplier
+				velocity.y = jump_velocity * bop_slam_multiplier
 			else:
-				velocity = move_and_slide(Vector2(velocity.x, bop_force))
+				# velocity = move_and_slide(Vector2(velocity.x, bop_force))
+				velocity.y = jump_velocity * bop_multiplier
 			bop_duration -= delta
 		else:
 			bopped = false
@@ -137,9 +142,9 @@ func _physics_process(delta):
 
 	# Coyote time
 	if was_on_floor and !is_on_floor():
-		jump_timer.start(coyote_time)
+		coyote_jump_timer.start(coyote_time)
 	elif is_on_floor():
-		jump_timer.stop()
+		coyote_jump_timer.stop()
 	
 	if !is_on_floor() and velocity.y > 0.0:
 		is_falling = true
@@ -204,13 +209,13 @@ func animate():
 				player_sprite.play(Animations.IDLE)
 	else:
 		if velocity.y < 0:
-			player_sprite.play(Animations.FALL)
+			player_sprite.play(Animations.JUMP)
 		else:
 			player_sprite.play(Animations.FALL)
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
-	if is_on_floor() or !jump_timer.is_stopped() and jumped == false:
+	if is_on_floor() or !coyote_jump_timer.is_stopped() and jumped == false:
 		jumped = true
 		# Audio
 		jump_sound.play()
@@ -218,7 +223,7 @@ func jump():
 		# player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
 		# reset_scale()
 		# velocity.y = jump_velocity
-		velocity = Vector2(velocity.x * (1 + abs(input_x)) * x_jump_fac, jump_velocity)
+		velocity = Vector2(velocity.x * ((1 + abs(input_x)) * 0.5) * x_jump_fac, jump_velocity)
 
 func cancel_jump():
 	"""Cancel the jump if the player releases the jump button early."""
