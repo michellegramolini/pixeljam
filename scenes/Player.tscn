@@ -91,11 +91,12 @@ collision_layer = 5
 collision_mask = 9
 script = ExtResource( 1 )
 speed = 100.0
-jump_height = 40.0
-jump_time_to_peak = 0.2
-jump_time_to_descent = 0.15
+jump_height = 55.0
+jump_time_to_peak = 0.28
+jump_time_to_descent = 0.24
 friction = 900.0
-bop_slam_multiplier = 1.8
+bop_slam_multiplier = 0.65
+bop_multiplier = 0.25
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 z_index = 2
