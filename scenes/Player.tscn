@@ -78,7 +78,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 12 )
+extents = Vector2( 7, 11.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 7, 1.625 )
@@ -95,16 +95,15 @@ jump_height = 40.0
 jump_time_to_peak = 0.2
 jump_time_to_descent = 0.15
 friction = 900.0
-bop_force = -80.0
 bop_slam_multiplier = 1.8
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 z_index = 2
 frames = SubResource( 5 )
-animation = "idle"
+animation = "run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, 3.5 )
 shape = SubResource( 1 )
 
 [node name="CoyoteTimer" type="Timer" parent="."]
