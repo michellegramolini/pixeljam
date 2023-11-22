@@ -1,6 +1,6 @@
 extends Control
 
-onready var player_node = get_tree().get_nodes_in_group("Player")
+onready var player_nodes = get_tree().get_nodes_in_group("Player")
 onready var manager_nodes = get_tree().get_nodes_in_group("LevelManager")
 
 # Tracking number of points
@@ -14,9 +14,9 @@ func _ready():
 	label.text = str(points)
 
 	# TODO: points signal
-	if player_node != null:
+	if player_nodes != null and len(player_nodes) > 0:
 		# Player node exists, assign it to a variable
-		player = player_node[0]
+		player = player_nodes[0]
 		player.connect("send_points", self, "_on_send_points")
 	else:
 		# Player node doesn't exist or couldn't be found

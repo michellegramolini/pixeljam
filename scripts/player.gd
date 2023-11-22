@@ -19,8 +19,7 @@ export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 export var bop_force = -100.0
 export var bop_slam_multiplier = 1.5
 export var slam_velocity_multiplier = 1.2
-
-var velocity := Vector2.ZERO
+export var x_jump_fac = 1
 
 # Onready variables
 onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
@@ -55,12 +54,15 @@ var starting_position: Vector2
 var reset_position = false
 var input_enabled = true
 var combo_count
+var velocity := Vector2.ZERO
+var input_x = 0
 
 func _ready():
 	# Connect signals
 	hitbox.connect("player_landed_on_enemy", self, "_on_Player_landed_on_enemy")
 	hitbox.connect("player_slammed_breakable", self, "_on_Player_slammed_breakable")
 	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
+	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
 
 	# Store the initial position when the scene is ready
@@ -68,26 +70,32 @@ func _ready():
 	combo_count = 0
 
 func _process(delta):
+	# Track horizontal input strength
+	input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
+
+	# Flip the sprite based on direction
+	# TODO: better would be flippling the entire node. colliders and all
 	flip_sprite()
 
 	# Check if the player is disabled
 	if disabled_timer > 0:
 		hurtbox.monitorable = false # Disable hurtbox
+		hitbox.monitorable = false # Disable hitbox
 		input_enabled = false # Disable player controls
-		reset_position = true
+		position = starting_position  # Reset the position
+		slammed = false # Reset slam
+		bopped = false # Reset bop
 		player_sprite.visible = false  # Hide the player sprite
 		disabled_timer -= delta
 	else:
-		if reset_position:
-			reset_position = false
-			position = starting_position  # Reset the position
-
 		player_sprite.visible = true  # Hide the player sprite
 		hurtbox.monitorable = true # Enable hurtbox
+		hitbox.monitorable = true # Enable hitbox
 		input_enabled = true # Re-enable player controls
 
 func _physics_process(delta):
-	player_sprite.play(Animations.RUN)
+	# player_sprite.play(Animations.RUN)
+	animate()
 
 	velocity.y += get_gravity() * delta
 
@@ -118,9 +126,9 @@ func _physics_process(delta):
 	if bopped:
 		if bop_duration > 0:
 			if slammed:
-				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force * bop_slam_multiplier))
+				velocity = move_and_slide(Vector2(velocity.x, bop_force * bop_slam_multiplier))
 			else:
-				velocity = move_and_slide(Vector2(velocity.x * 0.8, bop_force))
+				velocity = move_and_slide(Vector2(velocity.x, bop_force))
 			bop_duration -= delta
 		else:
 			bopped = false
@@ -140,8 +148,8 @@ func _physics_process(delta):
 	if is_on_floor() and is_falling:
 		is_falling = false
 		velocity = Vector2.ZERO
-		player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
-		reset_scale()
+		# player_sprite.scale = Vector2(SQUASH_X_AMOUNT * facing_direction, SQUASH_Y_AMOUNT)
+		# reset_scale()
 
 	if is_on_ground() and !slammed:
 		# Reset combo count if the player's feet touch the Environment
@@ -182,6 +190,23 @@ func is_on_ground():
 
 	return false
 	
+func animate():
+	"""Animate the player"""
+	if !is_on_floor() and slammed:
+		player_sprite.play(Animations.SLAM)
+	elif is_on_floor():
+		if velocity.x != 0:
+			player_sprite.play(Animations.RUN)
+		else:
+			if slammed:
+				player_sprite.play(Animations.SLAM)
+			else:
+				player_sprite.play(Animations.IDLE)
+	else:
+		if velocity.y < 0:
+			player_sprite.play(Animations.FALL)
+		else:
+			player_sprite.play(Animations.FALL)
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
@@ -190,9 +215,10 @@ func jump():
 		# Audio
 		jump_sound.play()
 		# Animation
-		player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
-		reset_scale()
-		velocity.y = jump_velocity
+		# player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
+		# reset_scale()
+		# velocity.y = jump_velocity
+		velocity = Vector2(velocity.x * (1 + abs(input_x)) * x_jump_fac, jump_velocity)
 
 func cancel_jump():
 	"""Cancel the jump if the player releases the jump button early."""
@@ -202,7 +228,7 @@ func cancel_jump():
 func slam():
 	"""Slam the player down"""
 	slammed = true
-	velocity.y = -jump_velocity * slam_velocity_multiplier
+	# velocity.y = -jump_velocity * slam_velocity_multiplier
 
 func cancel_slam():
 	"""Cancel the slam if the player releases the slam button early."""
@@ -219,15 +245,15 @@ func interpolate(current: float, target: float, delta: float) -> float:
 
 func flip_sprite():
 	"""Flip the sprite horizontally"""
-	var input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
+	# var input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
 	if input_x != 0:
 		facing_direction = 1 if input_x > 0 else -1
 		player_sprite.scale.x = abs(player_sprite.scale.x) * facing_direction
 
-func reset_scale():
-	"""Essentially a coroutine to reset the scale of the player sprite after a jump."""
-	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
-	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
+# func reset_scale():
+# 	"""Essentially a coroutine to reset the scale of the player sprite after a jump."""
+# 	yield(get_tree().create_timer(0.15), "timeout")  # Adjust the duration as needed
+# 	$AnimatedSprite.scale = Vector2(NORMAL_SCALE.x * facing_direction, NORMAL_SCALE.y)
 
 func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
@@ -236,6 +262,13 @@ func disable_for_duration(duration: float):
 func update_combo_count():
 	"""Update the combo count"""
 	combo_count += 1
+
+func die():
+	"""Kill the player"""
+	# Audio
+	death_sound.play()
+	# Disable the player sprite and collisions for a duration
+	disable_for_duration(disabled_duration)
 
 # Signals
 func _on_Player_landed_on_enemy(enemy: KinematicBody2D):
@@ -268,7 +301,8 @@ func _on_Player_landed_on_boppable(boppable):
 
 func _on_Player_hurt():
 	"""Perform actions when the player is hurt"""
-	# Audio
-	death_sound.play()
-	# Disable the player sprite and collisions for a duration
-	disable_for_duration(disabled_duration)
+	die()
+
+func _on_Player_landed_on_spikes():
+	"""Perform actions when the player lands on spikes"""
+	die()
