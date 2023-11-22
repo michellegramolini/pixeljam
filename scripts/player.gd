@@ -19,6 +19,7 @@ export var variable_jump_velocity_floor = -80.0 # Adjust as needed
 export var bop_force = -100.0
 export var bop_slam_multiplier = 1.5
 export var slam_velocity_multiplier = 1.2
+export var x_jump_fac = 1
 
 # Onready variables
 onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
@@ -54,6 +55,7 @@ var reset_position = false
 var input_enabled = true
 var combo_count
 var velocity := Vector2.ZERO
+var input_x = 0
 
 func _ready():
 	# Connect signals
@@ -68,6 +70,11 @@ func _ready():
 	combo_count = 0
 
 func _process(delta):
+	# Track horizontal input strength
+	input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
+
+	# Flip the sprite based on direction
+	# TODO: better would be flippling the entire node. colliders and all
 	flip_sprite()
 
 	# Check if the player is disabled
@@ -210,7 +217,8 @@ func jump():
 		# Animation
 		# player_sprite.scale = Vector2(STRETCH_X_AMOUNT * facing_direction, STRETCH_Y_AMOUNT)
 		# reset_scale()
-		velocity.y = jump_velocity
+		# velocity.y = jump_velocity
+		velocity = Vector2(velocity.x * (1 + abs(input_x)) * x_jump_fac, jump_velocity)
 
 func cancel_jump():
 	"""Cancel the jump if the player releases the jump button early."""
@@ -237,7 +245,7 @@ func interpolate(current: float, target: float, delta: float) -> float:
 
 func flip_sprite():
 	"""Flip the sprite horizontally"""
-	var input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
+	# var input_x = Input.get_action_strength(InputActions.MOVE_RIGHT) - Input.get_action_strength(InputActions.MOVE_LEFT)
 	if input_x != 0:
 		facing_direction = 1 if input_x > 0 else -1
 		player_sprite.scale.x = abs(player_sprite.scale.x) * facing_direction

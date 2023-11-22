@@ -18,6 +18,3 @@ func _on_body_entered(body):
 		emit_signal("player_landed_on_boppable", null)
 	if body.is_in_group("Spikes"):
 		emit_signal("player_landed_on_spikes")
-	
-
-
