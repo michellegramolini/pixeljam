@@ -19,7 +19,7 @@
 [ext_resource path="res://scenes/tilemaps/TilemapMidground.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/tilemaps/TilemapGrass.tscn" type="PackedScene" id=18]
 
-[node name="MichelleLevel" type="Node2D"]
+[node name="BrianLevel" type="Node2D"]
 
 [node name="LevelManager" parent="." instance=ExtResource( 6 )]
 
@@ -45,6 +45,11 @@ tile_data = PoolIntArray( 131073, 66, 131077, 131074, 66, 131077, 131075, 66, 13
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 72, 176 )
+jump_height = 51.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.25
+bop_slam_multiplier = 1.1
+slam_velocity_multiplier = 1.5
 
 [node name="Eyeball" parent="." instance=ExtResource( 11 )]
 position = Vector2( 320, 112 )
