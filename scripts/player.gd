@@ -209,7 +209,7 @@ func animate():
 				player_sprite.play(Animations.IDLE)
 	else:
 		if velocity.y < 0:
-			player_sprite.play(Animations.FALL)
+			player_sprite.play(Animations.JUMP)
 		else:
 			player_sprite.play(Animations.FALL)
 
