@@ -136,7 +136,6 @@ func _physics_process(delta):
 				velocity.y = jump_velocity * bop_multiplier
 			bop_duration -= delta
 		else:
-			slammed = false
 			bopped = false
 
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -208,14 +207,11 @@ func animate():
 				player_sprite.play(Animations.SLAM)
 			else:
 				player_sprite.play(Animations.IDLE)
-	else: # In the air
+	else:
 		if velocity.y < 0:
-			if slammed:
-				player_sprite.play(Animations.SLAM)
-			else:
-				player_sprite.play(Animations.JUMP)
-		else: # Falling
-				player_sprite.play(Animations.FALL)
+			player_sprite.play(Animations.JUMP)
+		else:
+			player_sprite.play(Animations.FALL)
 
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
@@ -241,8 +237,7 @@ func slam():
 
 func cancel_slam():
 	"""Cancel the slam if the player releases the slam button early."""
-	if is_on_floor():
-		slammed = false
+	slammed = false
 
 func interpolate(current: float, target: float, delta: float) -> float:
 	"""Interpolate between current and target values by delta"""
@@ -287,7 +282,7 @@ func _on_Player_landed_on_enemy(enemy: KinematicBody2D):
 	bop_sound.play()
 	# Indicate you bopped an enemy so we can maniuplate other processes
 	update_combo_count()
-	# TODO: send points to the HUD
+	# Update HUD points counter
 	emit_signal("send_points", 100 * combo_count)
 	bopped = true
 	bop_duration = BOP_DURATION
