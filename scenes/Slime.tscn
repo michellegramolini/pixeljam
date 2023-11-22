@@ -36,10 +36,9 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 11.6667 )
+extents = Vector2( 15, 12.5 )
 
 [node name="Slime" type="KinematicBody2D" groups=["Enemy", "Hazard"]]
-position = Vector2( 144, 112 )
 collision_layer = 8
 collision_mask = 5
 script = ExtResource( 2 )
@@ -51,6 +50,6 @@ frames = SubResource( 4 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 0 )
+position = Vector2( 1, -0.500003 )
 scale = Vector2( 0.6, 0.6 )
 shape = SubResource( 1 )

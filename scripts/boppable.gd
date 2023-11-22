@@ -21,6 +21,7 @@ func _ready():
 		# Player node exists, assign it to a variable
 		player = player_nodes[0]
 		player.get_node("Hitbox").connect("body_entered", self, "_on_Player_landed_on_boppable")
+		player.get_node("Hurtbox").connect("body_entered", self, "_on_Player_ran_into_boppable")
 	else:
 		# Player node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find Player node in the scene tree.")
@@ -68,6 +69,11 @@ func disable_for_duration(duration: float):
 
 func _on_Player_landed_on_boppable(boppable):
 	"""Called when the player lands on a boppable."""
+	if boppable == self:
+		disable_for_duration(disabled_duration)
+
+func _on_Player_ran_into_boppable(boppable):
+	"""Called when the player runs into a boppable."""
 	if boppable == self:
 		disable_for_duration(disabled_duration)
 
