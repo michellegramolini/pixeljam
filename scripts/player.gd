@@ -31,6 +31,8 @@ onready var coyote_jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
 onready var hitbox = $Hitbox
 onready var hurtbox = $Hurtbox
+
+# Sound effects
 onready var jump_sound = $JumpSound
 onready var slam_sound = $SlamSound
 onready var bop_sound = $BopSound
@@ -78,6 +80,7 @@ func _ready():
 	# Store the initial position of the Hurtbox node, we change this on the slam animation
 	original_hurtbox_position = hurtbox.position
 	slam_hurtbox_position = Vector2(hurtbox.position.x, hurtbox.position.y - MOVE_AMOUNT)
+
 	combo_count = 0
 
 func _process(delta):
@@ -327,6 +330,7 @@ func _on_Player_ran_into_gem(gem: StaticBody2D):
 	emit_signal("send_points", 200)
 
 func _on_animation_finished():
+	"""Perform actions when the last frame of an animation finishes"""
 	if player_sprite.animation == "slam":
 		# Move the Hurtbox node up by MOVE_AMOUNT pixels
 		hurtbox.position = slam_hurtbox_position
