@@ -3,6 +3,9 @@ extends KinematicBody2D
 # Scripts
 const Animations = preload("res://scripts/animations.gd")
 
+# Constants
+const POOF_PATH = "res://scenes/Poof.tscn"
+
 # Export variables
 export var horizontal_motion: bool = true
 export var motion_distance: float = 100.0
@@ -92,10 +95,20 @@ func enable():
 	collider.disabled = false
 	enemy_sprite.visible = true  # Hide the enemy sprite
 
+func generate_poof():
+	"""Generate a poof effect when the enemy is bopped."""
+	var poof_instance = load(POOF_PATH).instance()
+	poof_instance.global_position = global_position
+	get_parent().add_child(poof_instance)
+
 # Signals
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	if enemy == self:
+		var poof_instance = load(POOF_PATH).instance()
+		poof_instance.global_position = global_position
+		get_parent().add_child(poof_instance)
+
 		call_deferred("disable")
 
 func _on_LevelManager_reset_stage():

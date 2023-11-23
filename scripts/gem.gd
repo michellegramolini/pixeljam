@@ -46,10 +46,7 @@ func enable():
 
 # Signals
 func _on_Player_ran_into_gem(gem: StaticBody2D):
-	print("Player ran into gem")
-	print(gem)
 	if gem == self:
-		print("Player ran into gem")
 		call_deferred("disable")
 
 func _on_LevelManager_reset_stage():

@@ -29,7 +29,7 @@ motion_distance = 5.0
 motion_speed = 2.0
 
 [node name="Eyeball2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 333, 87 )
+position = Vector2( 49, 78 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 2.0
@@ -83,10 +83,10 @@ margin_bottom = 158.0
 text = "Jump 48px wide max"
 
 [node name="Label3" type="Label" parent="."]
-margin_left = 329.0
-margin_top = 64.0
-margin_right = 472.0
-margin_bottom = 95.0
+margin_left = 322.0
+margin_top = 36.0
+margin_right = 465.0
+margin_bottom = 67.0
 text = "Smash max 
 80 px high"
 
