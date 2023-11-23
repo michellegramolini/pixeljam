@@ -17,6 +17,8 @@ var disabled_timer = 0.0  # Timer to track disabled time
 func _ready():
 	enable()
 	
+	sprite.connect("animation_finished", self, "_on_AnimatedSprite_animation_finished")
+
 	if player_nodes != null and len(player_nodes) > 0:
 		# Player node exists, assign it to a variable
 		player = player_nodes[0]
@@ -35,9 +37,6 @@ func _ready():
 
 func _process(delta):
 	if disabled_timer > 0:
-		sprite.stop()
-		sprite.play(Animations.BOPPABLE_BREAK)
-		disable_collisions()
 		disabled_timer -= delta
 	else:
 		# Enable collisions after the disabled duration
@@ -65,6 +64,10 @@ func enable():
 
 func disable_for_duration(duration: float):
 	"""Temporarily disable collisons and sprites on an enemy for a specific duration."""
+	# Play animation
+	sprite.stop()
+	sprite.play(Animations.BOPPABLE_BREAK)
+	# Start timer
 	disabled_timer = duration
 
 func _on_Player_landed_on_boppable(boppable):
@@ -80,3 +83,9 @@ func _on_Player_ran_into_boppable(boppable):
 func _on_LevelManager_reset_stage():
 	"""Called when the level manager resets the stage."""
 	call_deferred("enable")
+
+func _on_AnimatedSprite_animation_finished():
+	"""Called when the AnimatedSprite finishes playing an animation."""
+	if sprite.animation == Animations.BOPPABLE_BREAK:
+		# Disable sprites and collisions
+		disable()
