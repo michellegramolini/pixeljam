@@ -44,6 +44,7 @@ const STRETCH_X_AMOUNT = 0.8
 const STRETCH_Y_AMOUNT = 1.2
 const NORMAL_SCALE = Vector2(1, 1)
 const BOP_DURATION = 0.2
+const MOVE_AMOUNT = 10  # Define the amount to move the Hurtbox
 
 var is_falling = false
 var facing_direction = 1  # Initially facing right
@@ -59,6 +60,8 @@ var input_enabled = true
 var combo_count
 var velocity := Vector2.ZERO
 var input_x = 0
+var original_hurtbox_position = Vector2()
+var slam_hurtbox_position = Vector2()
 
 func _ready():
 	# Connect signals
@@ -68,9 +71,13 @@ func _ready():
 	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
 	hurtbox.connect("ran_into_gem", self, "_on_Player_ran_into_gem")
+	player_sprite.connect("animation_finished", self, "_on_animation_finished")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
+	# Store the initial position of the Hurtbox node, we change this on the slam animation
+	original_hurtbox_position = hurtbox.position
+	slam_hurtbox_position = Vector2(hurtbox.position.x, hurtbox.position.y - MOVE_AMOUNT)
 	combo_count = 0
 
 func _process(delta):
@@ -318,3 +325,11 @@ func _on_Player_ran_into_gem(gem: StaticBody2D):
 	"""Get lots of points when the player runs into a gem"""
 	gem_sound.play()
 	emit_signal("send_points", 200)
+
+func _on_animation_finished():
+	if player_sprite.animation == "slam":
+		# Move the Hurtbox node up by MOVE_AMOUNT pixels
+		hurtbox.position = slam_hurtbox_position
+	else:
+		# Restore the original position of Hurtbox
+		hurtbox.position = original_hurtbox_position
