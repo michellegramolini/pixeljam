@@ -105,10 +105,7 @@ func generate_poof():
 func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	"""Perform actions when the player lands on an enemy"""
 	if enemy == self:
-		var poof_instance = load(POOF_PATH).instance()
-		poof_instance.global_position = global_position
-		get_parent().add_child(poof_instance)
-
+		generate_poof()
 		call_deferred("disable")
 
 func _on_LevelManager_reset_stage():

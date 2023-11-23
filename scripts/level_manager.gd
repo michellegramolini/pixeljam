@@ -32,7 +32,6 @@ func _on_LevelFlag_stage_clear():
 	emit_signal("reset_stage")
 
 func _on_Player_hurt():
-	print("Player Hurt!")
 	emit_signal("reset_stage")
 
 

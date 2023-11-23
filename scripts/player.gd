@@ -47,6 +47,7 @@ const STRETCH_Y_AMOUNT = 1.2
 const NORMAL_SCALE = Vector2(1, 1)
 const BOP_DURATION = 0.2
 const MOVE_AMOUNT = 10  # Define the amount to move the Hurtbox
+const POOF_PATH = "res://scenes/Poof.tscn"
 
 var is_falling = false
 var facing_direction = 1  # Initially facing right
@@ -225,6 +226,12 @@ func animate():
 		else:
 			player_sprite.play(Animations.FALL)
 
+func generate_poof():
+	"""Generate a poof effect when the enemy is bopped."""
+	var poof_instance = load(POOF_PATH).instance()
+	poof_instance.global_position = global_position
+	get_parent().add_child(poof_instance)
+
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
 	if is_on_floor() or !coyote_jump_timer.is_stopped() and jumped == false:
@@ -284,6 +291,8 @@ func die():
 	"""Kill the player"""
 	# Audio
 	death_sound.play()
+	# Do effect
+	generate_poof()
 	# Disable the player sprite and collisions for a duration
 	disable_for_duration(disabled_duration)
 
