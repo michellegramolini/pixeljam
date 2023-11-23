@@ -31,10 +31,13 @@ onready var coyote_jump_timer: Timer = $CoyoteTimer
 onready var player_sprite = $AnimatedSprite
 onready var hitbox = $Hitbox
 onready var hurtbox = $Hurtbox
+
+# Sound effects
 onready var jump_sound = $JumpSound
 onready var slam_sound = $SlamSound
 onready var bop_sound = $BopSound
 onready var death_sound = $DeathSound
+onready var gem_sound = $GemSound
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -43,6 +46,8 @@ const STRETCH_X_AMOUNT = 0.8
 const STRETCH_Y_AMOUNT = 1.2
 const NORMAL_SCALE = Vector2(1, 1)
 const BOP_DURATION = 0.2
+const MOVE_AMOUNT = 10  # Define the amount to move the Hurtbox
+const POOF_PATH = "res://scenes/Poof.tscn"
 
 var is_falling = false
 var facing_direction = 1  # Initially facing right
@@ -58,6 +63,8 @@ var input_enabled = true
 var combo_count
 var velocity := Vector2.ZERO
 var input_x = 0
+var original_hurtbox_position = Vector2()
+var slam_hurtbox_position = Vector2()
 
 func _ready():
 	# Connect signals
@@ -66,9 +73,15 @@ func _ready():
 	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
 	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
+	hurtbox.connect("ran_into_gem", self, "_on_Player_ran_into_gem")
+	player_sprite.connect("animation_finished", self, "_on_animation_finished")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
+	# Store the initial position of the Hurtbox node, we change this on the slam animation
+	original_hurtbox_position = hurtbox.position
+	slam_hurtbox_position = Vector2(hurtbox.position.x, hurtbox.position.y - MOVE_AMOUNT)
+
 	combo_count = 0
 
 func _process(delta):
@@ -213,6 +226,12 @@ func animate():
 		else:
 			player_sprite.play(Animations.FALL)
 
+func generate_poof():
+	"""Generate a poof effect when the enemy is bopped."""
+	var poof_instance = load(POOF_PATH).instance()
+	poof_instance.global_position = global_position
+	get_parent().add_child(poof_instance)
+
 func jump():
 	"""When Jump action is pressed, Jump if the player is on the floor or within the coyote time."""
 	if is_on_floor() or !coyote_jump_timer.is_stopped() and jumped == false:
@@ -272,6 +291,8 @@ func die():
 	"""Kill the player"""
 	# Audio
 	death_sound.play()
+	# Do effect
+	generate_poof()
 	# Disable the player sprite and collisions for a duration
 	disable_for_duration(disabled_duration)
 
@@ -311,3 +332,17 @@ func _on_Player_hurt():
 func _on_Player_landed_on_spikes():
 	"""Perform actions when the player lands on spikes"""
 	die()
+
+func _on_Player_ran_into_gem(gem: StaticBody2D):
+	"""Get lots of points when the player runs into a gem"""
+	gem_sound.play()
+	emit_signal("send_points", 200)
+
+func _on_animation_finished():
+	"""Perform actions when the last frame of an animation finishes"""
+	if player_sprite.animation == "slam":
+		# Move the Hurtbox node up by MOVE_AMOUNT pixels
+		hurtbox.position = slam_hurtbox_position
+	else:
+		# Restore the original position of Hurtbox
+		hurtbox.position = original_hurtbox_position
