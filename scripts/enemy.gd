@@ -98,7 +98,6 @@ func _on_player_landed_on_enemy(enemy: KinematicBody2D):
 	if enemy == self:
 		call_deferred("disable")
 
-# TODO: reset signal/event. on reset enable character
 func _on_LevelManager_reset_stage():
 	"""Perform actions when the level manager resets the stage."""
 	call_deferred("enable")

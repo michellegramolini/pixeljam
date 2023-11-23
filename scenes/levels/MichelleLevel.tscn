@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Bubble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Slime.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/Breakable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Eyeball.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Gem.tscn" type="PackedScene" id=13]
 
 [node name="MichelleLevel" type="Node2D"]
 
@@ -59,13 +60,13 @@ position = Vector2( 208, 96 )
 position = Vector2( 96, 96 )
 
 [node name="Spikes" parent="." instance=ExtResource( 12 )]
-position = Vector2( 183, 216 )
+position = Vector2( 184, 216 )
 
 [node name="Spikes2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 199, 216 )
+position = Vector2( 200, 216 )
 
 [node name="Spikes3" parent="." instance=ExtResource( 12 )]
-position = Vector2( 215, 216 )
+position = Vector2( 216, 216 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 8.0
@@ -107,10 +108,13 @@ max double
 bop (64px)"
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 256, 64 )
+position = Vector2( 256, 63 )
 collision_mask = 11
 jump_height = 55.0
 jump_time_to_peak = 0.28
 jump_time_to_descent = 0.24
 bop_slam_multiplier = 0.65
 bop_multiplier = 0.25
+
+[node name="Gem" parent="." instance=ExtResource( 13 )]
+position = Vector2( 160, 72 )

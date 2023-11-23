@@ -58,3 +58,4 @@ animation = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.625, 0.624999 )
 shape = SubResource( 9 )
+one_way_collision = true

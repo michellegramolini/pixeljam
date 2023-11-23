@@ -35,6 +35,7 @@ onready var jump_sound = $JumpSound
 onready var slam_sound = $SlamSound
 onready var bop_sound = $BopSound
 onready var death_sound = $DeathSound
+onready var gem_sound = $GemSound
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -66,6 +67,7 @@ func _ready():
 	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
 	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
+	hurtbox.connect("ran_into_gem", self, "_on_Player_ran_into_gem")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
@@ -311,3 +313,8 @@ func _on_Player_hurt():
 func _on_Player_landed_on_spikes():
 	"""Perform actions when the player lands on spikes"""
 	die()
+
+func _on_Player_ran_into_gem(gem: StaticBody2D):
+	"""Get lots of points when the player runs into a gem"""
+	gem_sound.play()
+	emit_signal("send_points", 200)
