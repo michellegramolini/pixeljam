@@ -10,8 +10,10 @@ func _ready():
 	set_as_toplevel(true)
 	global_position = get_parent().global_position
 	_update_screen(current_screen)
+	smoothing_enabled = false
 	
 func _physics_process(delta):
+	smoothing_enabled = true
 	var parent_screen : Vector2 = (get_parent().global_position / WINDOW_SIZE).floor()
 	
 	if not parent_screen.is_equal_approx(current_screen):

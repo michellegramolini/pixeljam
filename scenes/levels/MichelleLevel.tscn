@@ -108,7 +108,7 @@ max double
 bop (64px)"
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 248, 171 )
+position = Vector2( 248, 175 )
 collision_mask = 11
 
 [node name="Gem" parent="." instance=ExtResource( 13 )]
