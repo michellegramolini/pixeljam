@@ -4,8 +4,9 @@ var game_paused: bool
 enum menu_buttons {RESUME, MENU} 
 var selected_button
 
-func ready():
+func _ready():
 	game_paused = false
+	#set_focus(menu_buttons.RESUME)
 	
 func _process(delta):
 	if Input.is_action_just_pressed(InputActions.PAUSE):

@@ -4,6 +4,10 @@ extends Container
 enum menu_buttons {ONE, TWO, THREE, BACK} 
 var selected_button
 
+func _ready():
+	#set_focus(menu_buttons.ONE)
+	pass
+
 func change_level(num):
 	get_tree().change_scene("res://Scenes/levels/MichelleLevel.tscn")
 
