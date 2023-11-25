@@ -14,6 +14,9 @@ func handle_pause_press():
 	set_pause_menu_visibilty(game_paused)
 	get_tree().paused = game_paused
 
+	# if game_paused:
+	# 	$"resume_button".grab_focus()
+	
 func set_pause_menu_visibilty(vis):
 	$"menu_button".set_process(vis)
 	$"menu_button".visible = vis
