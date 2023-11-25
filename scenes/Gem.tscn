@@ -54,8 +54,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 4, 5 )
 
-[node name="Gem" type="StaticBody2D" groups=["Gem"]]
-collision_mask = 5
+[node name="Gem" type="Area2D" groups=["Gem"]]
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
