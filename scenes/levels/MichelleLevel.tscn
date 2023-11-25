@@ -40,7 +40,7 @@ position = Vector2( 384, 105 )
 [node name="MusicManager" parent="." instance=ExtResource( 7 )]
 
 [node name="LevelFlag" parent="." instance=ExtResource( 8 )]
-position = Vector2( 248, -126 )
+position = Vector2( 72, 123 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
