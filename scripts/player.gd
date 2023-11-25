@@ -38,6 +38,7 @@ onready var slam_sound = $SlamSound
 onready var bop_sound = $BopSound
 onready var death_sound = $DeathSound
 onready var gem_sound = $GemSound
+onready var gem_nodes = get_tree().get_nodes_in_group("Gem")
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -73,8 +74,12 @@ func _ready():
 	hitbox.connect("player_landed_on_boppable", self, "_on_Player_landed_on_boppable")
 	hitbox.connect("player_landed_on_spikes", self, "_on_Player_landed_on_spikes")
 	hurtbox.connect("player_hurt", self, "_on_Player_hurt")
-	hurtbox.connect("ran_into_gem", self, "_on_Player_ran_into_gem")
+
 	player_sprite.connect("animation_finished", self, "_on_animation_finished")
+
+	if gem_nodes != null and gem_nodes.size() > 0:
+		for gem in gem_nodes:
+			gem.connect("player_hit_gem", self, "_on_Gem_player_hit_gem")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
@@ -333,8 +338,9 @@ func _on_Player_landed_on_spikes():
 	"""Perform actions when the player lands on spikes"""
 	die()
 
-func _on_Player_ran_into_gem(gem: StaticBody2D):
+func _on_Gem_player_hit_gem(gem: Area2D):
 	"""Get lots of points when the player runs into a gem"""
+	print("Player hit gem from player")
 	gem_sound.play()
 	emit_signal("send_points", 200)
 
