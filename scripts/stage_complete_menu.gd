@@ -5,7 +5,10 @@ onready var level_flag = get_node("../LevelFlag")
 onready var total_points_label = get_node("Info/Points")
 onready var time_label = get_node("Info/Time")
 onready var continue_button = get_node("ContinueButton")
+onready var music_manager = get_node("../MusicManager")
 
+var victory_music
+var level_music
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +19,9 @@ func _ready():
 
 	if level_flag:
 		level_flag.connect("stage_clear", self, "_on_LevelFlag_stage_clear")
+
+	victory_music = music_manager.get_node("Victory")
+	level_music = music_manager.get_node("Music")
 
 func _input(event):
 	if event.is_action_pressed("ui_select"):
@@ -43,10 +49,12 @@ func _on_ContinueButton_pressed():
 	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
 
 func _on_LevelFlag_stage_clear(points, time):
+	level_music.stop()
+	victory_music.play()
 	get_tree().paused = true  # Pause the game
-
+	
 	yield(get_tree().create_timer(2.0), "timeout")  # Pause for 2 seconds
-
+	victory_music.stop()
 	get_tree().paused = false  # Resume the game
 	
 	total_points_label.text = str(points)
