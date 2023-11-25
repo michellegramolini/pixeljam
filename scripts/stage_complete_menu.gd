@@ -43,6 +43,12 @@ func _on_ContinueButton_pressed():
 	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
 
 func _on_LevelFlag_stage_clear(points, time):
+	get_tree().paused = true  # Pause the game
+
+	yield(get_tree().create_timer(2.0), "timeout")  # Pause for 2 seconds
+
+	get_tree().paused = false  # Resume the game
+	
 	total_points_label.text = str(points)
 	time_label.text = time
 	show_menu()
