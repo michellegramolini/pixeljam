@@ -31,4 +31,4 @@ func _on_body_entered(body):
 		call_deferred("disable")
 
 func _on_LevelManager_reset_stage():
-	enable()
+	call_deferred("enable")

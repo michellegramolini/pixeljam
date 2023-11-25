@@ -27,6 +27,9 @@ func delay(seconds):
 	start_time = OS.get_ticks_msec()
 	timer.start()
 
+func get_time():
+	return label.bbcode_text
+
 # Signals
 func _on_Timer_timeout():
 	var current_time = OS.get_ticks_msec()

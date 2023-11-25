@@ -13,7 +13,6 @@ func _ready():
 	label = $RichTextLabel
 	label.text = str(points)
 
-	# TODO: points signal
 	if player_nodes != null and len(player_nodes) > 0:
 		# Player node exists, assign it to a variable
 		player = player_nodes[0]
@@ -30,17 +29,20 @@ func _ready():
 		# LevelManager node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find LevelManager node in the scene tree.")
 		
-
-func _on_send_points(points: int):
-	update_label(points)
-
 func update_label(add_points: int):
 	# Update the Label to display the current points
 	points += add_points
 	label.text = str(points)
+
+func get_points():
+	# Return the current points
+	return points
 
 # Signals
 func _on_LevelManager_reset_stage():
 	# Reset points to 0
 	points = 0
 	label.text = str(points)
+
+func _on_send_points(points: int):
+	update_label(points)
