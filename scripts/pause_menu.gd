@@ -36,18 +36,16 @@ func set_pause_menu_visibilty(vis):
 	
 func handle_ui_input(ui_action):
 	if ui_action == InputActions.UI_DOWN:
-		print(selected_button)
 		if selected_button == menu_buttons.RESUME || selected_button == null:
 			set_focus(menu_buttons.MENU)
 			
 	if ui_action == InputActions.UI_UP:
-		print(selected_button)
 		if selected_button == menu_buttons.MENU || selected_button == null:
 			set_focus(menu_buttons.RESUME)
 		
 	if ui_action == InputActions.UI_ACCEPT:
 		if selected_button == menu_buttons.MENU:
-			$"menu_button".go_to_main_menu()
+			go_to_main_menu()
 		else:
 			handle_pause_press()
 		
