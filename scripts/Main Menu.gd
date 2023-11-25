@@ -1,7 +1,6 @@
 extends Container
 
-func _ready():
-	$"Start Button".grab_focus()
+
 
 func go_to_level_select():
 	set_main_screen_visibility(false)
@@ -16,7 +15,7 @@ func set_main_screen_visibility(vis):
 	$"Quit Button".visible = vis
 	$"Start Button".set_process(vis)
 	$"Start Button".visible = vis
-	$"Start Button".grab_focus()
+
 
 func set_level_screen_visibility(vis):
 	$"1".set_process(vis)
@@ -27,7 +26,6 @@ func set_level_screen_visibility(vis):
 	$"3".visible = vis
 	$"Back".set_process(vis)
 	$"Back".visible = vis
-	$"Back".grab_focus()
 	
 	
 func change_level(num):
