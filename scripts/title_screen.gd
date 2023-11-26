@@ -27,7 +27,7 @@ func _process(delta):
 	else:
 		if animated_sprite.animation != DEFAULT and shiny_done:
 			shiny_done = false
-			animated_sprite.play(IDLE)
+			animated_sprite.play(IDLE) 
 
 # This method is called when any animation finishes playing
 func _on_animation_finished():
