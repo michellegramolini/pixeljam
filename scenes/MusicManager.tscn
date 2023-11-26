@@ -1,15 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://audio/music.wav" type="AudioStream" id=1]
 [ext_resource path="res://audio/victory.wav" type="AudioStream" id=2]
+[ext_resource path="res://scripts/music_manager.gd" type="Script" id=3]
 
 [node name="MusicManager" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 pause_mode = 2
 stream = ExtResource( 1 )
 volume_db = -20.0
-autoplay = true
 
 [node name="Victory" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

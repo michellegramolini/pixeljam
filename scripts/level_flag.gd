@@ -12,7 +12,6 @@ var time
 
 func _ready():
 	if hud:
-		print("HUD found")
 		points_counter = hud.get_node("Control/PointsCounter")
 		timer = hud.get_node("Control/HUDTimer")
 

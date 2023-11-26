@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Bubble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Slime.tscn" type="PackedScene" id=2]
@@ -14,11 +14,11 @@
 [ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/Gem.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/menus/StageCompleteMenu.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scripts/start.gd" type="Script" id=15]
 [ext_resource path="res://scenes/Start.tscn" type="PackedScene" id=16]
 
 [node name="MichelleLevel" type="Node2D"]
-script = ExtResource( 15 )
+
+[node name="Start" parent="." groups=["Start"] instance=ExtResource( 16 )]
 
 [node name="TilemapGround" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, 64 )
@@ -116,5 +116,3 @@ position = Vector2( 307, 174 )
 
 [node name="StageCompleteMenu" parent="." instance=ExtResource( 14 )]
 visible = false
-
-[node name="Start" parent="." instance=ExtResource( 16 )]
