@@ -70,53 +70,113 @@ position = Vector2( 39, 36 )
 horizontal_motion = false
 motion_distance = 9.862
 
-[node name="Slime2" parent="Emmies" instance=ExtResource( 6 )]
-position = Vector2( 18, -1 )
+[node name="Eyeball11" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( -12, 4 )
+motion_distance = 5.0
+motion_speed = 1.0
 
-[node name="Eyeball3" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 81, -36 )
+[node name="Screen 2" type="Node" parent="Emmies"]
+
+[node name="Eyeball10" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -290, -92 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball4" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 110, -70 )
+[node name="Slime2" parent="Emmies/Screen 2" instance=ExtResource( 6 )]
+position = Vector2( -88, -34 )
+
+[node name="Eyeball3" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -140, -62 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball5" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 140, -70 )
+[node name="Eyeball4" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -260, -92 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball6" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 170, -70 )
+[node name="Eyeball5" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -230, -92 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball7" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 200, -70 )
+[node name="Eyeball6" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -200, -92 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball8" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 170, -145 )
+[node name="Eyeball7" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -170, -92 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball9" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 140, -145 )
+[node name="Eyeball8" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -218, -174 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
 
-[node name="Eyeball10" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 39, -140 )
+[node name="Eyeball9" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -249, -173 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball11" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -338, -39 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball13" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -128, -211 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball14" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -369, -80 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball12" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -55, -9 )
+motion_distance = 0.0
+motion_speed = 0.0
+
+[node name="Eyeball15" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -279, -172 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball16" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -307, -168 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball17" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -338, -163 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball18" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -400, -123 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball19" parent="Emmies/Screen 2" instance=ExtResource( 4 )]
+position = Vector2( -219, -34 )
 horizontal_motion = false
 motion_distance = 5.0
 motion_speed = 4.0
@@ -124,7 +184,7 @@ motion_speed = 4.0
 [node name="Breakables" type="Node" parent="."]
 
 [node name="Breakable" parent="Breakables" instance=ExtResource( 13 )]
-position = Vector2( 19, 14 )
+position = Vector2( -86, -20 )
 
 [node name="Spikes" type="Node" parent="."]
 
@@ -145,3 +205,81 @@ position = Vector2( 16, 136 )
 
 [node name="Spikes7" parent="Spikes" instance=ExtResource( 5 )]
 position = Vector2( 0, 136 )
+
+[node name="Spikes8" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -16, 136 )
+
+[node name="Spikes9" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -31, 136 )
+
+[node name="Spikes10" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -47, 136 )
+
+[node name="Spikes11" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -63, 136 )
+
+[node name="Spikes12" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -78, 136 )
+
+[node name="Spikes13" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -94, 136 )
+
+[node name="Spikes14" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -110, 136 )
+
+[node name="Spikes15" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -125, 136 )
+
+[node name="Spikes16" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -141, 136 )
+
+[node name="Spikes17" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -157, 136 )
+
+[node name="Spikes18" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -172, 136 )
+
+[node name="Spikes19" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -188, 136 )
+
+[node name="Spikes20" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -204, 136 )
+
+[node name="Spikes21" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -219, 136 )
+
+[node name="Spikes22" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -235, 136 )
+
+[node name="Spikes23" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -251, 136 )
+
+[node name="Spikes24" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -266, 136 )
+
+[node name="Spikes25" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -282, 136 )
+
+[node name="Spikes26" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -298, 136 )
+
+[node name="Spikes27" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -313, 136 )
+
+[node name="Spikes28" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -329, 136 )
+
+[node name="Spikes29" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -345, 136 )
+
+[node name="Spikes30" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -360, 136 )
+
+[node name="Spikes31" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -376, 136 )
+
+[node name="Spikes32" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -392, 136 )
+
+[node name="Spikes33" parent="Spikes" instance=ExtResource( 5 )]
+position = Vector2( -407, 136 )
