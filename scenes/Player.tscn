@@ -136,23 +136,20 @@ shape = SubResource( 18 )
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-volume_db = -15.0
 
 [node name="SlamSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
-volume_db = -10.0
+volume_db = 10.0
 
 [node name="BopSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
-volume_db = -10.0
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
-volume_db = -10.0
+volume_db = 10.0
 
 [node name="GemSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
-volume_db = -10.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 cast_to = Vector2( 0, 12 )
