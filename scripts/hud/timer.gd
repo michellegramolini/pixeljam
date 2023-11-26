@@ -3,6 +3,7 @@ extends Control
 onready var label: RichTextLabel = $RichTextLabel
 onready var timer: Timer = $Timer
 onready var manager_nodes = get_tree().get_nodes_in_group("LevelManager")
+onready var level_starter = get_tree().get_nodes_in_group("Start")
 
 var start_time: int = 0
 var level_manager: Node = null
@@ -15,11 +16,10 @@ func _ready():
 	else:
 		# LevelManager node doesn't exist or couldn't be found
 		print(str(self) + " Cannot find LevelManager node in the scene tree.")
-
-	start_time = OS.get_ticks_msec()
-	timer.connect("timeout", self, "_on_Timer_timeout")
-
-	timer.start()
+	
+	# Connect to the Start node to start the timer
+	if level_starter != null and len(level_starter) > 0:
+		level_starter[0].connect("start_level", self, "_on_Start_start_level")
 
 func delay(seconds):
 	yield(get_tree().create_timer(seconds), "timeout")
@@ -46,5 +46,10 @@ func _on_LevelManager_reset_stage():
 	start_time = OS.get_ticks_msec()
 	label.bbcode_text = "00:00:000"
 	delay(1.2)
+
+func _on_Start_start_level():
+	start_time = OS.get_ticks_msec()
+	timer.connect("timeout", self, "_on_Timer_timeout")
+	timer.start()
 
 
