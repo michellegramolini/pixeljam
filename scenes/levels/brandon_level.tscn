@@ -26,7 +26,7 @@ tile_data = PoolIntArray( -851969, 64, 196608, -917504, 64, 196608, -917503, 64,
 [node name="LevelManager" parent="." instance=ExtResource( 1 )]
 
 [node name="LevelFlag" parent="." instance=ExtResource( 8 )]
-position = Vector2( 288, 80 )
+position = Vector2( 288, -500 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 
@@ -72,6 +72,54 @@ motion_distance = 9.862
 
 [node name="Slime2" parent="Emmies" instance=ExtResource( 6 )]
 position = Vector2( 18, -1 )
+
+[node name="Eyeball3" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 81, -36 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball4" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 110, -70 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball5" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 140, -70 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball6" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 170, -70 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball7" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 200, -70 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball8" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 170, -145 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball9" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 140, -145 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
+
+[node name="Eyeball10" parent="Emmies" instance=ExtResource( 4 )]
+position = Vector2( 39, -140 )
+horizontal_motion = false
+motion_distance = 5.0
+motion_speed = 4.0
 
 [node name="Breakables" type="Node" parent="."]
 
