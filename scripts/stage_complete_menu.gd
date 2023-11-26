@@ -19,9 +19,18 @@ func _ready():
 
 	if level_flag:
 		level_flag.connect("stage_clear", self, "_on_LevelFlag_stage_clear")
-
-	victory_music = music_manager.get_node("Victory")
-	level_music = music_manager.get_node("Music")
+	else:
+		print(str(self) + " is missing a LevelFlag node!")
+	
+	if music_manager != null:
+		victory_music = music_manager.get_node("Victory")
+		level_music = music_manager.get_node("Music")
+	else:
+		print(str(self) + " is missing a MusicManager node!")
+	
+	# Enable input handling for navigation
+	set_process_input(true)
+	continue_button.grab_focus()
 
 func _input(event):
 	if event.is_action_pressed("ui_select"):
