@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 onready var animated_sprite = $Control/AnimatedSprite
+onready var start_button = $Control/StartButton
+onready var quit_button = $Control/QuitButton
+onready var music_manager = $MusicManager
 
 const IDLE = "idle"
 const DEFAULT = "default"
@@ -12,6 +15,14 @@ var shiny_done = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	start_button.set_disabled(false)
+	quit_button.set_disabled(false)
+
+	# Connect buttons
+	start_button.connect("pressed", self, "_on_StartButton_pressed")
+	quit_button.connect("pressed", self, "_on_QuitButton_pressed")
+
+	# Connect animation events
 	animated_sprite.connect("animation_finished", self, "_on_animation_finished")
 	animated_sprite.play(DEFAULT)
 
@@ -29,12 +40,33 @@ func _process(delta):
 			shiny_done = false
 			animated_sprite.play(IDLE) 
 
+# Signals
+
 # This method is called when any animation finishes playing
 func _on_animation_finished():
 	if animated_sprite.animation == DEFAULT:
-		print("DEFAULT animation finished")
+		# Play music
+		music_manager.play_title_music()
 		# After the "default" animation finishes, start the "idle" animation
 		animated_sprite.play(IDLE)
 	if animated_sprite.animation == SHINY:
 		shiny_done = true
 
+func _on_StartButton_pressed():
+	print("StartButton pressed")
+	# Stop music
+	music_manager.stop_title_music()
+	# Play sound effect
+	music_manager.play_start_effect()
+	# Replace with function body.
+	start_button.set_disabled(true)
+	yield(get_tree().create_timer(0.5), "timeout")
+	# TODO: change to level select screen
+	get_tree().change_scene("res://scenes/levels/MichelleLevel.tscn")
+
+func _on_QuitButton_pressed():
+	print("QuitButton pressed")
+	# Replace with function body.
+	quit_button.set_disabled(true)
+	yield(get_tree().create_timer(0.5), "timeout")
+	get_tree().quit()
