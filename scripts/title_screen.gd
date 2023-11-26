@@ -12,6 +12,7 @@ const SHINY = "shine"
 var time_elapsed: float = 0.0
 var interval: float = 5.0
 var shiny_done = false
+var focused_button: Button = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +26,9 @@ func _ready():
 	# Connect animation events
 	animated_sprite.connect("animation_finished", self, "_on_animation_finished")
 	animated_sprite.play(DEFAULT)
+	
+	# Enable input handling for navigation
+	set_process_input(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -39,6 +43,27 @@ func _process(delta):
 		if animated_sprite.animation != DEFAULT and shiny_done:
 			shiny_done = false
 			animated_sprite.play(IDLE) 
+
+# Input Handling for Button Navigation
+func _input(event):
+	if event.is_action_pressed("ui_up"):
+		focus_button(start_button)
+		get_tree().set_input_as_handled()
+
+	elif event.is_action_pressed("ui_down"):
+		focus_button(quit_button)
+		get_tree().set_input_as_handled()
+
+	elif event.is_action_pressed("ui_select"):
+		if focused_button == start_button:
+			_on_StartButton_pressed()
+		elif focused_button == quit_button:
+			_on_QuitButton_pressed()
+
+# Custom function to set focus to a specific button
+func focus_button(button: Button):
+	focused_button = button
+	button.grab_focus()
 
 # Signals
 
