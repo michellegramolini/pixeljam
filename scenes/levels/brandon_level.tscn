@@ -110,10 +110,13 @@ position = Vector2( 513, -168 )
 position = Vector2( 627, -149 )
 
 [node name="Bubble20" parent="Boppables" instance=ExtResource( 12 )]
-position = Vector2( 720, -291 )
+position = Vector2( 760, -290 )
 
 [node name="Bubble21" parent="Boppables" instance=ExtResource( 12 )]
 position = Vector2( 765, -245 )
+
+[node name="Bubble22" parent="Boppables" instance=ExtResource( 12 )]
+position = Vector2( 715, -345 )
 
 [node name="Emmies" type="Node" parent="."]
 
@@ -265,7 +268,7 @@ motion_distance = 5.0
 position = Vector2( 30, -344 )
 
 [node name="Eyeball5" parent="Emmies" instance=ExtResource( 4 )]
-position = Vector2( 500, -302 )
+position = Vector2( 500, -290 )
 horizontal_motion = false
 motion_distance = 5.0
 
