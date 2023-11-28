@@ -652,3 +652,6 @@ visible = false
 
 [node name="KillPlane" parent="." instance=ExtResource( 16 )]
 position = Vector2( -624, 192 )
+
+[node name="KillPlane2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 624, 160 )
