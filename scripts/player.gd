@@ -340,7 +340,6 @@ func _on_Player_landed_on_spikes():
 
 func _on_Gem_player_hit_gem(gem: Area2D):
 	"""Get lots of points when the player runs into a gem"""
-	print("Player hit gem from player")
 	gem_sound.play()
 	emit_signal("send_points", 200)
 

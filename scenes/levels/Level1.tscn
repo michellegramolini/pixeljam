@@ -15,7 +15,7 @@
 
 [node name="MichelleLevel" type="Node2D"]
 
-[node name="Start" parent="." groups=["Start"] instance=ExtResource( 16 )]
+[node name="Start" parent="." instance=ExtResource( 16 )]
 visible = false
 
 [node name="TilemapGround" parent="." instance=ExtResource( 9 )]
