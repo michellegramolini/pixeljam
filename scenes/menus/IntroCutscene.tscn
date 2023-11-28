@@ -1491,5 +1491,5 @@ anchor_bottom = 1.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Control"]
 position = Vector2( 200, 112 )
 frames = SubResource( 369 )
-frame = 41
+frame = 308
 playing = true
