@@ -11,6 +11,8 @@ func _ready():
 	# Connect to the Start node to start the timer
 	if level_starter != null and len(level_starter) > 0:
 		level_starter[0].connect("start_level", self, "_on_Start_start_level")
+	else:
+		print(str(self) + " Cannot find Start node in the scene tree.")
 
 func play_title_music():
 	title_music.play()

@@ -39,6 +39,7 @@ onready var bop_sound = $BopSound
 onready var death_sound = $DeathSound
 onready var gem_sound = $GemSound
 onready var gem_nodes = get_tree().get_nodes_in_group("Gem")
+onready var killplane_nodes = get_tree().get_nodes_in_group("KillPlane")
 
 # Sprite squash and stretch
 const SQUASH_X_AMOUNT = 1.2
@@ -66,6 +67,7 @@ var velocity := Vector2.ZERO
 var input_x = 0
 var original_hurtbox_position = Vector2()
 var slam_hurtbox_position = Vector2()
+var kill_plane
 
 func _ready():
 	# Connect signals
@@ -80,6 +82,12 @@ func _ready():
 	if gem_nodes != null and gem_nodes.size() > 0:
 		for gem in gem_nodes:
 			gem.connect("player_hit_gem", self, "_on_Gem_player_hit_gem")
+	
+	if killplane_nodes != null and killplane_nodes.size() > 0:
+		kill_plane = killplane_nodes[0]
+		kill_plane.connect("player_hit_kill_plane", self, "_on_Player_hurt")
+	else:
+		print("No kill plane found!")
 
 	# Store the initial position when the scene is ready
 	starting_position = global_position
@@ -340,7 +348,6 @@ func _on_Player_landed_on_spikes():
 
 func _on_Gem_player_hit_gem(gem: Area2D):
 	"""Get lots of points when the player runs into a gem"""
-	print("Player hit gem from player")
 	gem_sound.play()
 	emit_signal("send_points", 200)
 

@@ -1,0 +1,56 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/Bubble.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/hud/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/pause_menu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/LevelManager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/MusicManager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/LevelFlag.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/tilemaps/TilemapGround.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Spikes.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/StageCompleteMenu.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/Start.tscn" type="PackedScene" id=16]
+
+[node name="MichelleLevel" type="Node2D"]
+
+[node name="Start" parent="." instance=ExtResource( 16 )]
+visible = false
+
+[node name="TilemapGround" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, 64 )
+tile_data = PoolIntArray( -196583, 2, 65537, -131047, 2, 65537, -65526, 2, 0, -65525, 2, 2, -65511, 2, 65537, 10, 2, 131072, 11, 2, 131074, 25, 2, 65537, 65552, 2, 0, 65553, 2, 2, 65561, 2, 65537, 131088, 2, 65536, 131089, 2, 65538, 131097, 2, 65537, 196624, 2, 65536, 196625, 2, 65538, 196633, 2, 65537, 262160, 2, 65536, 262161, 2, 65538, 262169, 2, 65537, 327691, 2, 0, 327692, 2, 2, 327696, 2, 65536, 327697, 2, 65538, 327705, 2, 65537, 393227, 2, 65536, 393228, 2, 65538, 393232, 2, 65536, 393233, 2, 65538, 393241, 2, 65537, 458763, 2, 65536, 458764, 2, 65538, 458768, 2, 65536, 458769, 2, 65538, 458777, 2, 65537, 589820, 2, 0, 589821, 2, 1, 589822, 2, 1, 589823, 2, 1, 524288, 2, 1, 524289, 2, 1, 524290, 2, 1, 524291, 2, 1, 524292, 2, 2, 524295, 2, 0, 524296, 2, 1, 524297, 2, 1, 524298, 2, 1, 524299, 2, 65537, 524300, 2, 65537, 524301, 2, 1, 524302, 2, 1, 524303, 2, 1, 524304, 2, 65537, 524305, 2, 65537, 524306, 2, 1, 524307, 2, 1, 524308, 2, 1, 524309, 2, 1, 524310, 2, 1, 524311, 2, 1, 524312, 2, 1, 524313, 2, 2, 655355, 2, 65537, 655356, 2, 131072, 655357, 2, 131073, 655358, 2, 131073, 655359, 2, 131073, 589824, 2, 131073, 589825, 2, 131073, 589826, 2, 131073, 589827, 2, 131073, 589828, 2, 131074, 589831, 2, 131072, 589832, 2, 131073, 589833, 2, 131073, 589834, 2, 131073, 589835, 2, 131073, 589836, 2, 131073, 589837, 2, 131073, 589838, 2, 131073, 589839, 2, 131073, 589840, 2, 131073, 589841, 2, 131073, 589842, 2, 131073, 589843, 2, 131073, 589844, 2, 131073, 589845, 2, 131073, 589846, 2, 131073, 589847, 2, 131073, 589848, 2, 131073, 589849, 2, 131074, 655385, 2, 65537, 720921, 2, 65537, 786457, 2, 65537, 851993, 2, 65537 )
+
+[node name="LevelManager" parent="." instance=ExtResource( 6 )]
+
+[node name="MusicManager" parent="." instance=ExtResource( 7 )]
+
+[node name="LevelFlag" parent="." instance=ExtResource( 8 )]
+position = Vector2( 317, 450 )
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="pause_menu" parent="HUD" instance=ExtResource( 5 )]
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 16, 175 )
+collision_mask = 11
+
+[node name="StageCompleteMenu" parent="." instance=ExtResource( 14 )]
+visible = false
+
+[node name="Slime" parent="." instance=ExtResource( 2 )]
+position = Vector2( 124, 185 )
+
+[node name="Spikes" parent="." instance=ExtResource( 12 )]
+position = Vector2( 88, 216 )
+
+[node name="Spikes2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 104, 216 )
+
+[node name="Bubble" parent="." instance=ExtResource( 1 )]
+position = Vector2( 233, 137 )
+
+[node name="Bubble2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 208, 64 )
