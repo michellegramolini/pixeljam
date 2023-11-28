@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/LevelManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/hud/HUD.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/Breakable.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Start.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/menus/StageCompleteMenu.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/KillPlane.tscn" type="PackedScene" id=16]
 
 [node name="BrandonLevel" type="Node2D"]
 
@@ -648,3 +649,6 @@ rotation = -1.5708
 
 [node name="StageCompleteMenu" parent="." instance=ExtResource( 15 )]
 visible = false
+
+[node name="KillPlane" parent="." instance=ExtResource( 16 )]
+position = Vector2( -624, 192 )

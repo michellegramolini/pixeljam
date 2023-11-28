@@ -12,3 +12,4 @@ func _on_body_entered(body):
 		emit_signal("player_hurt")
 	if body.is_in_group("Boppable"):
 		emit_signal("ran_into_boppable")
+
