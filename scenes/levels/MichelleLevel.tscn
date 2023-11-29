@@ -43,8 +43,6 @@ position = Vector2( 72, 123 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
-[node name="pause_menu" parent="HUD" instance=ExtResource( 5 )]
-
 [node name="Breakable" parent="." instance=ExtResource( 10 )]
 position = Vector2( 145, -56 )
 
@@ -120,3 +118,5 @@ visible = false
 
 [node name="KillPlane" parent="." instance=ExtResource( 15 )]
 position = Vector2( -640, 224 )
+
+[node name="pause_menu" parent="." instance=ExtResource( 5 )]

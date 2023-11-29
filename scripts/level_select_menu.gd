@@ -9,10 +9,17 @@ func _ready():
 	pass
 
 func change_level(num):
-	get_tree().change_scene("res://Scenes/levels/MichelleLevel.tscn")
+	# FIXME: i don't understand why so many representations for the same thing but here we GOOO
+	if num == "one":
+		get_tree().change_scene("res://Scenes/levels/Level1.tscn")
+	elif num == "two":
+		get_tree().change_scene("res://Scenes/levels/Level2.tscn")
+	elif num == "three":
+		get_tree().change_scene("res://Scenes/levels/Level3.tscn")
+	else:
+		print("ERROR: invalid level number")
 
 func go_to_main_view():
-	
 	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 

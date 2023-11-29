@@ -8,12 +8,14 @@
 [ext_resource path="res://art/UI/main_menu/quit hovers.png" type="Texture" id=6]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=9]
 
-[node name="Control" type="Container"]
+[node name="MainMenu" type="CanvasLayer"]
+
+[node name="Control" type="Container" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 9 )
 
-[node name="start_button" type="TextureButton" parent="."]
+[node name="start_button" type="TextureButton" parent="Control"]
 margin_left = 150.0
 margin_top = 50.0
 margin_right = 246.0
@@ -23,7 +25,7 @@ texture_pressed = ExtResource( 2 )
 texture_hover = ExtResource( 3 )
 texture_focused = ExtResource( 3 )
 
-[node name="quit_button" type="TextureButton" parent="."]
+[node name="quit_button" type="TextureButton" parent="Control"]
 margin_left = 150.0
 margin_top = 110.0
 margin_right = 246.0
@@ -34,7 +36,7 @@ texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 6 )
 texture_focused = ExtResource( 6 )
 
-[connection signal="button_up" from="start_button" to="." method="go_to_level_select"]
-[connection signal="mouse_entered" from="start_button" to="." method="set_focus" binds= [ 0 ]]
-[connection signal="button_up" from="quit_button" to="." method="quit_game"]
-[connection signal="mouse_entered" from="quit_button" to="." method="set_focus" binds= [ 1 ]]
+[connection signal="button_up" from="Control/start_button" to="Control" method="go_to_level_select"]
+[connection signal="mouse_entered" from="Control/start_button" to="Control" method="set_focus" binds= [ 0 ]]
+[connection signal="button_up" from="Control/quit_button" to="Control" method="quit_game"]
+[connection signal="mouse_entered" from="Control/quit_button" to="Control" method="set_focus" binds= [ 1 ]]
