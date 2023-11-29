@@ -9,11 +9,12 @@ func _ready():
 	pass
 
 func change_level(num):
-	get_tree().change_scene("res://Scenes/levels/MichelleLevel.tscn")
+	var level = "level_" + num
+	get_tree().change_scene("res://Scenes/levels/" + level + ".tscn")
 
 func go_to_main_view():
 	
-	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
+	get_tree().change_scene("res://scenes/menus/main_menu.tscn")
 
 
 func handle_ui_input(ui_action):
