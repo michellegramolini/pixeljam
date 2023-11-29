@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scripts/Main Menu.gd" type="Script" id=1]
+[ext_resource path="res://scripts/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://art/UI/main_menu/start hover.png" type="Texture" id=2]
 [ext_resource path="res://art/UI/main_menu/quit pressed.png" type="Texture" id=3]
 [ext_resource path="res://art/UI/main_menu/quit normal.png" type="Texture" id=4]
