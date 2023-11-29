@@ -61,6 +61,7 @@ func set_focus(button):
 		
 
 func go_to_main_menu():
-	get_tree().change_scene("res://Scenes/menus/main_menu.tscn") # TODO A second PR will be made for fixing naming with spaces. sry 0.0
+	get_parent().get_parent().get_parent().show_main_menu()
 	get_tree().paused = false
+	get_parent().get_parent().queue_free()
 	

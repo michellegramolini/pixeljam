@@ -1,6 +1,9 @@
 extends Container
 
-
+signal go_to_main_menu
+signal go_to_level_1
+signal go_to_level_2
+signal go_to_level_3
 enum menu_buttons {ONE, TWO, THREE, BACK} 
 var selected_button
 
@@ -9,12 +12,15 @@ func _ready():
 	pass
 
 func change_level(num):
-	var level = "level_" + num
-	get_tree().change_scene("res://Scenes/levels/" + level + ".tscn")
+	if num == "one": #There's a cleaner way to do this with signal params but I will fix later time permitting
+		emit_signal("go_to_level_1")
+	elif num == "two":
+		emit_signal("go_to_level_2")
+	else:
+		emit_signal("go_to_level_3")
 
 func go_to_main_view():
-	
-	get_tree().change_scene("res://scenes/menus/main_menu.tscn")
+	emit_signal("go_to_main_menu")
 
 
 func handle_ui_input(ui_action):
@@ -86,3 +92,7 @@ func _process(delta):
 		
 	if Input.is_action_just_pressed(InputActions.UI_LEFT):
 		handle_ui_input(InputActions.UI_LEFT)
+
+
+func show_level(extra_arg_0):
+	pass # Replace with function body.

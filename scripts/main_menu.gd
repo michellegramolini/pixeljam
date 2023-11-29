@@ -2,14 +2,15 @@ extends Container
 
 enum menu_buttons {START, QUIT} 
 var selected_button
-
+signal go_to_level_select
 
 func _ready():
 	#set_focus(menu_buttons.START)
 	pass
 	
 func go_to_level_select():
-	get_tree().change_scene("res://Scenes/menus/level_select_menu.tscn")
+	emit_signal("go_to_level_select")
+	#get_tree().change_scene("res://Scenes/menus/level_select_menu.tscn")
 	
 func _process(delta):
 	if Input.is_action_just_pressed(InputActions.UI_ACCEPT):
