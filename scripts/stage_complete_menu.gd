@@ -55,7 +55,6 @@ func hide_menu():
 func _on_ContinueButton_pressed():
 	hide_menu()
 	# Go to level select
-	#get_tree().change_scene("res://scenes/menus/main_menu.tscn")
 	get_parent().get_parent().show_main_menu()
 	get_parent().queue_free()
 

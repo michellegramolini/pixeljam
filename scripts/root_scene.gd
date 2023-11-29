@@ -1,17 +1,15 @@
-extends Node2D
+extends Node
 
 var main
 var select
-export var level_1 = preload("res://scenes/levels/level_one.tscn")
-export var level_2 = preload("res://scenes/levels/level_two.tscn")
-export var level_3 = preload("res://scenes/levels/level_three.tscn")
+var cutscene = preload("res://scenes/menus/IntroCutscene.tscn")
+var level_1 = preload("res://scenes/levels/level_one.tscn")
+var level_2 = preload("res://scenes/levels/level_two.tscn")
+var level_3 = preload("res://scenes/levels/level_three.tscn")
 
 func _ready():
 	main = $main_menu
 	select = $level_select_menu
-	#level_1 = $level_1
-	#level_2 = $level_2
-	#level_3 = $level_3
 	
 	disable_everything()
 	show_main_menu()
@@ -20,11 +18,18 @@ func show_main_menu():
 	disable_everything()
 	main.visible = true
 	main.set_process(true)
+	main.reset_start_button()
 
 func show_level_select_menu():
 	disable_everything()
 	select.visible = true
 	select.set_process(true)
+	
+func show_cutscene():
+	disable_everything()
+	var cutscene_instance = cutscene.instance()
+	add_child(cutscene_instance)
+	
 	
 func show_level(num):
 	disable_everything()

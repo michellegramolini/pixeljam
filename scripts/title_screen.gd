@@ -4,6 +4,7 @@ onready var animated_sprite = $Control/AnimatedSprite
 onready var start_button = $Control/StartButton
 onready var quit_button = $Control/QuitButton
 onready var music_manager = $MusicManager
+signal play_intro_cutscene
 
 const IDLE = "idle"
 const DEFAULT = "default"
@@ -78,7 +79,6 @@ func _on_animation_finished():
 		shiny_done = true
 
 func _on_StartButton_pressed():
-	print("StartButton pressed")
 	# Stop music
 	music_manager.stop_title_music()
 	# Play sound effect
@@ -87,11 +87,15 @@ func _on_StartButton_pressed():
 	start_button.set_disabled(true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	# Start cutscene
-	get_tree().change_scene("res://scenes/menus/IntroCutscene.tscn")
+	emit_signal("play_intro_cutscene")
 
 func _on_QuitButton_pressed():
-	print("QuitButton pressed")
 	# Replace with function body.
 	quit_button.set_disabled(true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	get_tree().quit()
+
+
+func reset_start_button():
+	start_button.set_disabled(false)
+	

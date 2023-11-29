@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node
 
 onready var animation = get_node("Control/AnimatedSprite")
 onready var music_manager = $MusicManager
@@ -13,6 +13,10 @@ func _ready():
 	# Play cutscene
 	play_cutscene()
 
+func _process(delta):
+	if Input.is_action_just_pressed(InputActions.UI_ACCEPT):
+		get_parent().show_level_select_menu()
+		queue_free()
 
 func play_cutscene():
 	animation.play(DEFAULT)
@@ -26,4 +30,4 @@ func _on_animation_finished():
 	# Wait before transitioning
 	yield(get_tree().create_timer(0.5), "timeout")
 	# Transition to level select
-	get_tree().change_scene("res://scenes/menus/level_select_menu.tscn")
+	emit_signal("go_to_level_select")
