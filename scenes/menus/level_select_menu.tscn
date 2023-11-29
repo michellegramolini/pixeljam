@@ -61,7 +61,7 @@ texture_focused = ExtResource( 2 )
 
 [connection signal="button_up" from="1" to="." method="change_level" binds= [ "one" ]]
 [connection signal="mouse_entered" from="1" to="." method="set_focus" binds= [ 0 ]]
-[connection signal="button_up" from="2" to="back" method="change_level" binds= [ "two" ]]
+[connection signal="button_up" from="2" to="." method="change_level" binds= [ "two" ]]
 [connection signal="mouse_entered" from="2" to="." method="set_focus" binds= [ 1 ]]
 [connection signal="button_up" from="3" to="." method="change_level" binds= [ "three" ]]
 [connection signal="mouse_entered" from="3" to="." method="set_focus" binds= [ 2 ]]

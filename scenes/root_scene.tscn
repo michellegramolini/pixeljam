@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/menus/main_menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/level_select_menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/root_scene.gd" type="Script" id=6]
+
+[node name="root_scene" type="Node"]
+script = ExtResource( 6 )
+
+[node name="level_select_menu" parent="." instance=ExtResource( 4 )]
+
+[node name="main_menu" parent="." instance=ExtResource( 1 )]
+
+[connection signal="go_to_level_1" from="level_select_menu" to="." method="show_level" binds= [ "one" ]]
+[connection signal="go_to_level_2" from="level_select_menu" to="." method="show_level" binds= [ "two" ]]
+[connection signal="go_to_level_3" from="level_select_menu" to="." method="show_level" binds= [ "three" ]]
+[connection signal="go_to_main_menu" from="level_select_menu" to="." method="show_main_menu"]
+[connection signal="play_intro_cutscene" from="main_menu" to="." method="show_cutscene"]
