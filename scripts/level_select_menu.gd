@@ -13,7 +13,7 @@ func change_level(num):
 
 func go_to_main_view():
 	
-	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 
 func handle_ui_input(ui_action):
