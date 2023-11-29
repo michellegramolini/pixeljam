@@ -16,7 +16,6 @@ func _ready():
 	disable_everything()
 	show_main_menu()
 	
-
 func show_main_menu():
 	disable_everything()
 	main.visible = true
