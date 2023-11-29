@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-
+var main_menu = preload("res://Scenes/menus/main_menu.tscn")
 onready var level_flag = get_node("../LevelFlag")
 onready var total_points_label = get_node("Info/Points")
 onready var time_label = get_node("Info/Time")
@@ -55,7 +55,7 @@ func hide_menu():
 func _on_ContinueButton_pressed():
 	hide_menu()
 	# Go to level select
-	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
+	get_tree().change_scene(main_menu)
 
 func _on_LevelFlag_stage_clear(points, time):
 	level_music.stop()

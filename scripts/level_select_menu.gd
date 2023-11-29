@@ -3,17 +3,17 @@ extends Container
 
 enum menu_buttons {ONE, TWO, THREE, BACK} 
 var selected_button
+var main_menu = preload("res://Scenes/menus/main_menu.tscn")
 
 func _ready():
 	#set_focus(menu_buttons.ONE)
 	pass
 
 func change_level(num):
-	get_tree().change_scene("res://Scenes/levels/MichelleLevel.tscn")
+	get_tree().change_scene("res://scenes/levels/brandon_level.tscn")
 
 func go_to_main_view():
-	
-	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
+	get_tree().change_scene("res://Scenes/menus/main_menu.tscn")
 
 
 func handle_ui_input(ui_action):
