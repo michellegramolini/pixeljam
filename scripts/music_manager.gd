@@ -3,6 +3,7 @@ extends Node2D
 onready var level_music = get_node("Music")
 onready var victory_music = get_node("Victory")
 onready var title_music = get_node("Title")
+onready var cutscene_music = get_node("IntroCut")
 onready var start_effect = get_node("Start")
 onready var level_starter = get_tree().get_nodes_in_group("Start")
 
@@ -22,6 +23,12 @@ func stop_title_music():
 
 func play_start_effect():
 	start_effect.play()
+
+func play_cutscene_music():
+	cutscene_music.play()
+
+func stop_cutscene_music():
+	cutscene_music.stop()
 
 # Signals
 func _on_Start_start_level():
