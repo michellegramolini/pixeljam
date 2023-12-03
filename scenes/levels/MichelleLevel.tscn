@@ -43,8 +43,6 @@ position = Vector2( 72, 123 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
-[node name="pause_menu" parent="HUD" instance=ExtResource( 5 )]
-
 [node name="Breakable" parent="." instance=ExtResource( 10 )]
 position = Vector2( 145, -56 )
 
@@ -106,7 +104,7 @@ max double
 bop (64px)"
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -272, 144 )
+position = Vector2( 128, 176 )
 collision_mask = 11
 
 [node name="Gem" parent="." instance=ExtResource( 13 )]
@@ -120,3 +118,5 @@ visible = false
 
 [node name="KillPlane" parent="." instance=ExtResource( 15 )]
 position = Vector2( -640, 224 )
+
+[node name="pause_menu" parent="." instance=ExtResource( 5 )]

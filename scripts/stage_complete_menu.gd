@@ -55,7 +55,7 @@ func hide_menu():
 func _on_ContinueButton_pressed():
 	hide_menu()
 	# Go to level select
-	get_tree().change_scene("res://scenes/menus/Main Menu.tscn")
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 func _on_LevelFlag_stage_clear(points, time):
 	level_music.stop()

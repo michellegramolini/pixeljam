@@ -86,8 +86,8 @@ func _on_StartButton_pressed():
 	# Replace with function body.
 	start_button.set_disabled(true)
 	yield(get_tree().create_timer(0.5), "timeout")
-	# TODO: change to level select screen
-	get_tree().change_scene("res://scenes/levels/MichelleLevel.tscn")
+	# Start cutscene
+	get_tree().change_scene("res://scenes/menus/IntroCutscene.tscn")
 
 func _on_QuitButton_pressed():
 	print("QuitButton pressed")

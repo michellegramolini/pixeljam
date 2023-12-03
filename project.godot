@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="pixeljam"
-run/main_scene="res://scenes/levels/MichelleLevel.tscn"
+run/main_scene="res://scenes/menus/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [display]
