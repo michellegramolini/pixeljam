@@ -134,21 +134,21 @@ script = ExtResource( 4 )
 position = Vector2( 0, 2.5 )
 shape = SubResource( 18 )
 
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
-[node name="SlamSound" type="AudioStreamPlayer2D" parent="."]
+[node name="SlamSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = 10.0
 
-[node name="BopSound" type="AudioStreamPlayer2D" parent="."]
+[node name="BopSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = 10.0
 
-[node name="GemSound" type="AudioStreamPlayer2D" parent="."]
+[node name="GemSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
